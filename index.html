@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>École d'Excellence Espoir de Guinée (E.E.G)</title>
+<meta name="description" content="École d'Excellence Espoir de Guinée (E.E.G) — Révéler le potentiel. Former les leaders. Cérémonie d'ouverture officielle le 05 Septembre 2025 à Lambanyi, Conakry." />
+
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          navy: {
+            DEFAULT: '#0F2C59',
+            50: '#EAF0FA',
+            100: '#CBDAF0',
+            200: '#9FBBE0',
+            300: '#6E97CC',
+            400: '#4674B0',
+            500: '#265593',
+            600: '#1B3E75',
+            700: '#152F5C',
+            800: '#0F2C59',
+            900: '#0A1B38',
+            950: '#060F20',
+          },
+          gold: {
+            DEFAULT: '#D4AF37',
+            50: '#FBF6E7',
+            100: '#F5EAC3',
+            200: '#EBD68B',
+            300: '#E1C15C',
+            400: '#D9B449',
+            500: '#D4AF37',
+            600: '#B0902A',
+            700: '#8A6F20',
+          },
+        },
+        fontFamily: {
+          serif: ['"Playfair Display"', 'Georgia', 'serif'],
+          sans: ['"Inter"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; }
+  .font-serif-display { font-family: 'Playfair Display', serif; }
+
+  .gold-underline {
+    position: relative;
+    display: inline-block;
+  }
+  .gold-underline::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -6px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+    border-radius: 2px;
+  }
+
+  .hero-bg {
+    background:
+      radial-gradient(circle at 15% 20%, rgba(212,175,55,0.15), transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(212,175,55,0.12), transparent 45%),
+      linear-gradient(160deg, #0A1B38 0%, #0F2C59 45%, #152F5C 100%);
+  }
+
+  .pattern-overlay {
+    background-image: radial-gradient(rgba(212,175,55,0.35) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .card-hover { transition: transform .35s ease, box-shadow .35s ease; }
+  .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -12px rgba(15,44,89,0.25); }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .fade-up.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .countdown-box {
+    backdrop-filter: blur(6px);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(212,175,55,0.35);
+  }
+
+  .timeline-line {
+    background: linear-gradient(180deg, #D4AF37, rgba(212,175,55,0.15));
+  }
+
+  input:focus, textarea:focus { outline: none; }
+
+  ::selection { background: #D4AF37; color: #0F2C59; }
+</style>
+</head>
+
+<body class="bg-white text-navy-900 antialiased">
+
+<!-- ============ NAVBAR ============ -->
+<header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+  <nav class="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-20">
+    <a href="#top" class="flex items-center gap-3 group">
+      <span class="text-2xl">🎓</span>
+      <span class="leading-tight">
+        <span id="nav-title" class="block font-serif-display font-bold text-lg text-white transition-colors">É.E.G</span>
+        <span id="nav-subtitle" class="block text-[10px] tracking-widest uppercase text-gold-400 transition-colors">Espoir de Guinée</span>
+      </span>
+    </a>
+
+    <div class="hidden lg:flex items-center gap-9">
+      <a href="#about" class="nav-link text-sm font-medium text-white/90 hover:text-gold-400 transition-colors">À Propos</a>
+      <a href="#leadership" class="nav-link text-sm font-medium text-white/90 hover:text-gold-400 transition-colors">Direction</a>
+      <a href="#program" class="nav-link text-sm font-medium text-white/90 hover:text-gold-400 transition-colors">Programme</a>
+      <a href="#location" class="nav-link text-sm font-medium text-white/90 hover:text-gold-400 transition-colors">Localisation</a>
+      <a href="#contact" class="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold text-sm px-6 py-3 rounded-full shadow-lg shadow-gold-500/20 transition-all hover:shadow-gold-500/40 hover:scale-[1.03]">
+        Postuler
+      </a>
+    </div>
+
+    <button id="menu-btn" class="lg:hidden text-white p-2" aria-label="Ouvrir le menu">
+      <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+      <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden lg:hidden bg-navy-900/98 backdrop-blur border-t border-white/10">
+    <div class="px-6 py-6 flex flex-col gap-5">
+      <a href="#about" class="mobile-link text-white/90 font-medium">À Propos</a>
+      <a href="#leadership" class="mobile-link text-white/90 font-medium">Direction</a>
+      <a href="#program" class="mobile-link text-white/90 font-medium">Programme</a>
+      <a href="#location" class="mobile-link text-white/90 font-medium">Localisation</a>
+      <a href="#contact" class="mobile-link inline-flex justify-center items-center bg-gold-500 text-navy-900 font-bold px-6 py-3 rounded-full">Postuler</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="relative hero-bg overflow-hidden pt-32 pb-24 sm:pt-40 sm:pb-32">
+  <div class="absolute inset-0 pattern-overlay opacity-20"></div>
+  <div class="absolute -top-24 -right-24 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl"></div>
+  <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-navy-400/20 rounded-full blur-3xl"></div>
+
+  <div class="relative max-w-6xl mx-auto px-5 sm:px-8 text-center">
+
+    <!-- Partnership badge -->
+    <div class="fade-up inline-flex items-center gap-3 bg-white/5 border border-white/15 rounded-full px-5 py-2 mb-8">
+      <span class="text-lg leading-none">🇸🇪</span>
+      <span class="text-xs sm:text-sm text-white/80 tracking-wide">Partenariat Guinée — Suède</span>
+      <span class="text-lg leading-none">🇬🇳</span>
+    </div>
+
+    <div class="fade-up text-5xl sm:text-6xl mb-6">🎓</div>
+
+    <p class="fade-up text-gold-400 text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase mb-4">Cérémonie d'Ouverture Officielle</p>
+
+    <h1 class="fade-up font-serif-display text-4xl sm:text-6xl md:text-7xl font-extrabold text-white leading-[1.1] mb-6">
+      École d'Excellence <br class="hidden sm:block" />
+      <span class="text-gold-400">Espoir de Guinée</span>
+    </h1>
+
+    <p class="fade-up font-serif-display italic text-xl sm:text-2xl text-white/90 gold-underline mb-4">
+      « Révéler le potentiel. Former les leaders. »
+    </p>
+
+    <p class="fade-up text-white/70 max-w-2xl mx-auto text-base sm:text-lg mb-10">
+      Ensemble, bâtissons un avenir d'excellence pour nos enfants et notre nation.
+    </p>
+
+    <div class="fade-up flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+      <a href="#contact" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold px-8 py-4 rounded-full shadow-xl shadow-gold-500/25 transition-all hover:scale-105">
+        Prendre Rendez-vous
+      </a>
+      <a href="#program" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 border border-white/30 hover:border-gold-400 hover:text-gold-400 text-white font-semibold px-8 py-4 rounded-full transition-all">
+        Voir le Programme
+      </a>
+    </div>
+
+    <!-- Countdown -->
+    <div class="fade-up max-w-3xl mx-auto">
+      <p class="text-white/60 text-xs sm:text-sm uppercase tracking-widest mb-4">Compte à rebours — 05 Septembre 2025, 10h00 GMT</p>
+      <div id="countdown" class="grid grid-cols-4 gap-3 sm:gap-5">
+        <div class="countdown-box rounded-2xl py-4 sm:py-6">
+          <div id="cd-days" class="font-serif-display text-3xl sm:text-5xl font-bold text-gold-400">00</div>
+          <div class="text-[10px] sm:text-xs text-white/60 uppercase tracking-widest mt-1">Jours</div>
+        </div>
+        <div class="countdown-box rounded-2xl py-4 sm:py-6">
+          <div id="cd-hours" class="font-serif-display text-3xl sm:text-5xl font-bold text-gold-400">00</div>
+          <div class="text-[10px] sm:text-xs text-white/60 uppercase tracking-widest mt-1">Heures</div>
+        </div>
+        <div class="countdown-box rounded-2xl py-4 sm:py-6">
+          <div id="cd-minutes" class="font-serif-display text-3xl sm:text-5xl font-bold text-gold-400">00</div>
+          <div class="text-[10px] sm:text-xs text-white/60 uppercase tracking-widest mt-1">Minutes</div>
+        </div>
+        <div class="countdown-box rounded-2xl py-4 sm:py-6">
+          <div id="cd-seconds" class="font-serif-display text-3xl sm:text-5xl font-bold text-gold-400">00</div>
+          <div class="text-[10px] sm:text-xs text-white/60 uppercase tracking-widest mt-1">Secondes</div>
+        </div>
+      </div>
+      <p id="countdown-status" class="text-gold-400 text-sm font-semibold mt-5 hidden">🎉 L'événement a commencé — Bienvenue !</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT / VISION ============ -->
+<section id="about" class="py-24 sm:py-32 bg-white relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-16 fade-up">
+      <p class="text-gold-600 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-3">Notre Vision</p>
+      <h2 class="font-serif-display text-3xl sm:text-5xl font-bold text-navy-900 mb-6">
+        Former les leaders de demain
+      </h2>
+      <p class="text-navy-700/80 text-base sm:text-lg leading-relaxed">
+        L'École d'Excellence Espoir de Guinée (E.E.G) est née d'une ambition claire : offrir à la jeunesse guinéenne
+        une éducation de standard international, ancrée dans les valeurs locales et ouverte sur le monde. Fruit d'une
+        collaboration entre la Guinée et la Suède, notre institution s'engage à révéler le potentiel de chaque élève
+        et à former une nouvelle génération de leaders responsables, créatifs et compétitifs.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-3 gap-6 sm:gap-8">
+      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-8 text-center">
+        <div class="w-14 h-14 mx-auto mb-5 rounded-2xl bg-navy-800 flex items-center justify-center text-2xl">🌍</div>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2">Standards Internationaux</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed">Un programme académique rigoureux inspiré des meilleures pratiques éducatives suédoises et guinéennes.</p>
+      </div>
+      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-8 text-center">
+        <div class="w-14 h-14 mx-auto mb-5 rounded-2xl bg-gold-500 flex items-center justify-center text-2xl">💡</div>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2">Excellence & Innovation</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed">Des méthodes pédagogiques modernes qui cultivent la pensée critique, la créativité et la confiance en soi.</p>
+      </div>
+      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-8 text-center">
+        <div class="w-14 h-14 mx-auto mb-5 rounded-2xl bg-navy-800 flex items-center justify-center text-2xl">🤝</div>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2">Leadership & Valeurs</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed">Un accompagnement humain fort, au service de la formation de citoyens engagés pour l'avenir de la Guinée.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LEADERSHIP / PATRONS ============ -->
+<section id="leadership" class="py-24 sm:py-32 bg-navy-900 relative overflow-hidden">
+  <div class="absolute inset-0 pattern-overlay opacity-10"></div>
+  <div class="relative max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
+      <p class="text-gold-400 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-3">Parrain & Marraine</p>
+      <h2 class="font-serif-display text-3xl sm:text-5xl font-bold text-white">
+        Nos Figures de Proue
+      </h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <!-- Parrain -->
+      <div class="fade-up card-hover bg-white/5 border border-gold-500/25 rounded-3xl p-8 text-center backdrop-blur">
+        <div class="w-28 h-28 mx-auto rounded-full bg-gradient-to-br from-navy-600 to-navy-800 border-4 border-gold-500 flex items-center justify-center text-5xl mb-6 shadow-lg">
+          👔
+        </div>
+        <span class="inline-block bg-gold-500 text-navy-900 text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">Parrain</span>
+        <h3 class="font-serif-display text-xl font-bold text-white mb-2">Ansoumane Diessira Condé</h3>
+        <p class="text-white/60 text-sm italic">« Engagé pour l'éducation, bâtisseur d'avenir. »</p>
+      </div>
+
+      <!-- Marraine -->
+      <div class="fade-up card-hover bg-white/5 border border-gold-500/25 rounded-3xl p-8 text-center backdrop-blur">
+        <div class="w-28 h-28 mx-auto rounded-full bg-gradient-to-br from-navy-600 to-navy-800 border-4 border-gold-500 flex items-center justify-center text-5xl mb-6 shadow-lg">
+          👩🏾
+        </div>
+        <span class="inline-block bg-gold-500 text-navy-900 text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">Marraine</span>
+        <h3 class="font-serif-display text-xl font-bold text-white mb-2">Kadija Bah</h3>
+        <p class="text-white/60 text-sm italic">« Une femme de conviction, au service de la jeunesse. »</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EVENT SCHEDULE ============ -->
+<section id="program" class="py-24 sm:py-32 bg-white">
+  <div class="max-w-4xl mx-auto px-5 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
+      <p class="text-gold-600 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-3">05 Septembre 2025</p>
+      <h2 class="font-serif-display text-3xl sm:text-5xl font-bold text-navy-900">
+        Programme de la Cérémonie
+      </h2>
+    </div>
+
+    <div class="relative pl-10 sm:pl-14">
+      <div class="absolute left-4 sm:left-6 top-2 bottom-2 w-[3px] timeline-line rounded-full"></div>
+
+      <div class="space-y-10">
+        <div class="fade-up relative">
+          <div class="absolute -left-[34px] sm:-left-[42px] top-1 w-6 h-6 rounded-full bg-gold-500 border-4 border-white shadow-md flex items-center justify-center text-[10px]">🕐</div>
+          <div class="bg-navy-50/70 border border-navy-100 rounded-2xl p-6 card-hover">
+            <span class="text-gold-600 font-bold text-sm">10H00 GMT</span>
+            <h3 class="font-serif-display font-bold text-lg text-navy-900 mt-1">Réception des invités</h3>
+            <p class="text-navy-700/70 text-sm mt-1">Accueil chaleureux et installation des invités d'honneur, partenaires et familles.</p>
+          </div>
+        </div>
+
+        <div class="fade-up relative">
+          <div class="absolute -left-[34px] sm:-left-[42px] top-1 w-6 h-6 rounded-full bg-gold-500 border-4 border-white shadow-md flex items-center justify-center text-[10px]">🎗️</div>
+          <div class="bg-navy-50/70 border border-navy-100 rounded-2xl p-6 card-hover">
+            <span class="text-gold-600 font-bold text-sm">10H45 GMT</span>
+            <h3 class="font-serif-display font-bold text-lg text-navy-900 mt-1">Inauguration officielle</h3>
+            <p class="text-navy-700/70 text-sm mt-1">Cérémonie symbolique marquant le lancement officiel de l'École d'Excellence Espoir de Guinée.</p>
+          </div>
+        </div>
+
+        <div class="fade-up relative">
+          <div class="absolute -left-[34px] sm:-left-[42px] top-1 w-6 h-6 rounded-full bg-gold-500 border-4 border-white shadow-md flex items-center justify-center text-[10px]">🏫</div>
+          <div class="bg-navy-50/70 border border-navy-100 rounded-2xl p-6 card-hover">
+            <span class="text-gold-600 font-bold text-sm">11H00 GMT</span>
+            <h3 class="font-serif-display font-bold text-lg text-navy-900 mt-1">Présentation des lieux</h3>
+            <p class="text-navy-700/70 text-sm mt-1">Visite guidée du campus, des infrastructures et des espaces pédagogiques de l'école.</p>
+          </div>
+        </div>
+
+        <div class="fade-up relative">
+          <div class="absolute -left-[34px] sm:-left-[42px] top-1 w-6 h-6 rounded-full bg-gold-500 border-4 border-white shadow-md flex items-center justify-center text-[10px]">🎙️</div>
+          <div class="bg-navy-50/70 border border-navy-100 rounded-2xl p-6 card-hover">
+            <span class="text-gold-600 font-bold text-sm">12H00 GMT</span>
+            <h3 class="font-serif-display font-bold text-lg text-navy-900 mt-1">Discours officiels</h3>
+            <p class="text-navy-700/70 text-sm mt-1">Allocutions des autorités, partenaires et figures de proue de l'établissement.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOCATION & CONTACT ============ -->
+<section id="location" class="py-24 sm:py-32 bg-navy-50/60 relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
+      <p class="text-gold-600 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-3">Où nous trouver</p>
+      <h2 class="font-serif-display text-3xl sm:text-5xl font-bold text-navy-900">
+        Localisation & Contact
+      </h2>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-10">
+      <!-- Map + info -->
+      <div class="fade-up space-y-6">
+        <div id="contact" class="rounded-3xl overflow-hidden border border-navy-100 shadow-lg h-72 sm:h-80">
+          <iframe
+            title="Localisation E.E.G — Lambanyi, Carrefour Canadien, Conakry"
+            src="https://www.google.com/maps?q=Lambanyi,+Carrefour+Canadien,+Conakry,+Guin%C3%A9e&output=embed"
+            class="w-full h-full border-0"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+
+        <div class="bg-white rounded-3xl border border-navy-100 p-6 sm:p-8 space-y-5 shadow-sm">
+          <div class="flex items-start gap-4">
+            <div class="w-11 h-11 rounded-xl bg-navy-800 flex items-center justify-center text-lg shrink-0">📍</div>
+            <div>
+              <p class="font-semibold text-navy-900">Adresse</p>
+              <p class="text-navy-700/70 text-sm">Lambanyi, Carrefour Canadien, Conakry – Guinée</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-11 h-11 rounded-xl bg-navy-800 flex items-center justify-center text-lg shrink-0">📞</div>
+            <div>
+              <p class="font-semibold text-navy-900">Téléphone</p>
+              <a href="tel:+22462000000" class="text-navy-700/70 text-sm hover:text-gold-600 transition-colors">+224 62 00 00 00</a>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-11 h-11 rounded-xl bg-navy-800 flex items-center justify-center text-lg shrink-0">✉️</div>
+            <div>
+              <p class="font-semibold text-navy-900">Email</p>
+              <a href="mailto:contact@ee-gn.org" class="text-navy-700/70 text-sm hover:text-gold-600 transition-colors">contact@ee-gn.org</a>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-11 h-11 rounded-xl bg-navy-800 flex items-center justify-center text-lg shrink-0">🌐</div>
+            <div>
+              <p class="font-semibold text-navy-900">Site web</p>
+              <a href="https://www.ee-gn.org" target="_blank" rel="noopener" class="text-navy-700/70 text-sm hover:text-gold-600 transition-colors">www.ee-gn.org</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RSVP Form -->
+      <div class="fade-up bg-white rounded-3xl border border-navy-100 shadow-lg p-6 sm:p-10">
+        <h3 class="font-serif-display text-2xl font-bold text-navy-900 mb-2">Confirmez votre présence</h3>
+        <p class="text-navy-700/70 text-sm mb-8">Réservez votre place pour la cérémonie d'ouverture ou demandez plus d'informations sur les admissions.</p>
+
+        <form id="rsvp-form" class="space-y-5">
+          <div>
+            <label for="fullname" class="block text-sm font-medium text-navy-900 mb-1.5">Nom complet</label>
+            <input type="text" id="fullname" name="fullname" required placeholder="Votre nom et prénom"
+              class="w-full rounded-xl border border-navy-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 px-4 py-3 text-sm transition-all" />
+          </div>
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label for="phone" class="block text-sm font-medium text-navy-900 mb-1.5">Téléphone</label>
+              <input type="tel" id="phone" name="phone" required placeholder="+224 6X XX XX XX"
+                class="w-full rounded-xl border border-navy-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 px-4 py-3 text-sm transition-all" />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-navy-900 mb-1.5">Email</label>
+              <input type="email" id="email" name="email" placeholder="vous@email.com"
+                class="w-full rounded-xl border border-navy-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 px-4 py-3 text-sm transition-all" />
+            </div>
+          </div>
+          <div>
+            <label for="reason" class="block text-sm font-medium text-navy-900 mb-1.5">Objet</label>
+            <select id="reason" name="reason"
+              class="w-full rounded-xl border border-navy-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 px-4 py-3 text-sm transition-all bg-white">
+              <option>Confirmer ma présence à la cérémonie</option>
+              <option>Demande d'admission / inscription</option>
+              <option>Information sur le programme</option>
+              <option>Partenariat / autre</option>
+            </select>
+          </div>
+          <div>
+            <label for="message" class="block text-sm font-medium text-navy-900 mb-1.5">Message (optionnel)</label>
+            <textarea id="message" name="message" rows="3" placeholder="Écrivez votre message ici..."
+              class="w-full rounded-xl border border-navy-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 px-4 py-3 text-sm transition-all resize-none"></textarea>
+          </div>
+          <button type="submit"
+            class="w-full bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold py-4 rounded-xl shadow-lg shadow-gold-500/20 transition-all hover:scale-[1.01]">
+            Envoyer ma demande
+          </button>
+          <p id="form-success" class="hidden text-center text-sm font-medium text-navy-800 bg-gold-100 border border-gold-300 rounded-xl py-3">
+            ✅ Merci ! Votre demande a bien été enregistrée. Nous vous contacterons très prochainement.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-navy-950 text-white pt-16 pb-8 relative overflow-hidden">
+  <div class="absolute inset-0 pattern-overlay opacity-5"></div>
+  <div class="relative max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="grid sm:grid-cols-3 gap-10 pb-10 border-b border-white/10">
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-2xl">🎓</span>
+          <span class="font-serif-display font-bold text-lg">É.E.G</span>
+        </div>
+        <p class="text-white/60 text-sm leading-relaxed mb-4">
+          École d'Excellence Espoir de Guinée — Un partenariat Guinée & Suède pour révéler le potentiel et former les leaders de demain.
+        </p>
+        <div class="flex items-center gap-2 text-sm text-white/60">
+          <span>🇸🇪</span><span>&</span><span>🇬🇳</span>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="font-serif-display font-bold text-gold-400 mb-4">Liens Rapides</h4>
+        <ul class="space-y-2.5 text-sm text-white/60">
+          <li><a href="#about" class="hover:text-gold-400 transition-colors">À Propos</a></li>
+          <li><a href="#leadership" class="hover:text-gold-400 transition-colors">Direction</a></li>
+          <li><a href="#program" class="hover:text-gold-400 transition-colors">Programme</a></li>
+          <li><a href="#location" class="hover:text-gold-400 transition-colors">Localisation</a></li>
+          <li><a href="#contact" class="hover:text-gold-400 transition-colors">Postuler</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-serif-display font-bold text-gold-400 mb-4">Contact</h4>
+        <ul class="space-y-2.5 text-sm text-white/60">
+          <li>Lambanyi, Carrefour Canadien, Conakry – Guinée</li>
+          <li><a href="tel:+22462000000" class="hover:text-gold-400 transition-colors">+224 62 00 00 00</a></li>
+          <li><a href="mailto:contact@ee-gn.org" class="hover:text-gold-400 transition-colors">contact@ee-gn.org</a></li>
+          <li><a href="https://www.ee-gn.org" target="_blank" rel="noopener" class="hover:text-gold-400 transition-colors">www.ee-gn.org</a></li>
+        </ul>
+        <div class="flex items-center gap-4 mt-5">
+          <a href="#" aria-label="Facebook" class="w-9 h-9 rounded-full bg-white/10 hover:bg-gold-500 hover:text-navy-900 flex items-center justify-center text-sm transition-colors">f</a>
+          <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-full bg-white/10 hover:bg-gold-500 hover:text-navy-900 flex items-center justify-center text-sm transition-colors">ig</a>
+          <a href="#" aria-label="LinkedIn" class="w-9 h-9 rounded-full bg-white/10 hover:bg-gold-500 hover:text-navy-900 flex items-center justify-center text-sm transition-colors">in</a>
+          <a href="#" aria-label="WhatsApp" class="w-9 h-9 rounded-full bg-white/10 hover:bg-gold-500 hover:text-navy-900 flex items-center justify-center text-sm transition-colors">wa</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/40">
+      <p>© <span id="year"></span> École d'Excellence Espoir de Guinée (E.E.G). Tous droits réservés.</p>
+      <p class="font-serif-display italic text-gold-400/80">« Révéler le potentiel. Former les leaders. »</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---------- Navbar scroll style ----------
+  const navbar = document.getElementById('navbar');
+  const navTitle = document.getElementById('nav-title');
+  const navSubtitle = document.getElementById('nav-subtitle');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  function onScrollNav() {
+    if (window.scrollY > 40) {
+      navbar.classList.add('bg-white/95', 'backdrop-blur', 'shadow-md');
+      navTitle.classList.remove('text-white');
+      navTitle.classList.add('text-navy-900');
+      navLinks.forEach(l => { l.classList.remove('text-white/90'); l.classList.add('text-navy-800'); });
+    } else {
+      navbar.classList.remove('bg-white/95', 'backdrop-blur', 'shadow-md');
+      navTitle.classList.add('text-white');
+      navTitle.classList.remove('text-navy-900');
+      navLinks.forEach(l => { l.classList.add('text-white/90'); l.classList.remove('text-navy-800'); });
+    }
+  }
+  window.addEventListener('scroll', onScrollNav);
+  onScrollNav();
+
+  // ---------- Mobile menu ----------
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+    iconOpen.classList.toggle('hidden');
+    iconClose.classList.toggle('hidden');
+  });
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    });
+  });
+
+  // ---------- Countdown Timer ----------
+  // 05 September 2025, 10:00 GMT
+  const eventDate = new Date('2025-09-05T10:00:00Z').getTime();
+  const cdDays = document.getElementById('cd-days');
+  const cdHours = document.getElementById('cd-hours');
+  const cdMinutes = document.getElementById('cd-minutes');
+  const cdSeconds = document.getElementById('cd-seconds');
+  const countdownEl = document.getElementById('countdown');
+  const countdownStatus = document.getElementById('countdown-status');
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function updateCountdown() {
+    const now = Date.now();
+    const distance = eventDate - now;
+
+    if (distance <= 0) {
+      cdDays.textContent = '00';
+      cdHours.textContent = '00';
+      cdMinutes.textContent = '00';
+      cdSeconds.textContent = '00';
+      countdownStatus.classList.remove('hidden');
+      clearInterval(countdownInterval);
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    cdDays.textContent = pad(days);
+    cdHours.textContent = pad(hours);
+    cdMinutes.textContent = pad(minutes);
+    cdSeconds.textContent = pad(seconds);
+  }
+
+  updateCountdown();
+  const countdownInterval = setInterval(updateCountdown, 1000);
+
+  // ---------- Fade-up on scroll ----------
+  const fadeEls = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  fadeEls.forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 4) * 80}ms`;
+    observer.observe(el);
+  });
+
+  // ---------- RSVP form (client-side demo) ----------
+  const form = document.getElementById('rsvp-form');
+  const formSuccess = document.getElementById('form-success');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    formSuccess.classList.remove('hidden');
+    form.reset();
+    setTimeout(() => formSuccess.classList.add('hidden'), 6000);
+  });
+
+  // ---------- Footer year ----------
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
