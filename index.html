@@ -99,6 +99,24 @@
   input:focus, textarea:focus { outline: none; }
 
   ::selection { background: #D4AF37; color: #0F2C59; }
+
+  .lang-btn { transition: all .2s ease; }
+  .lang-btn[data-active="true"] { background: #D4AF37; color: #0F2C59; }
+  .lang-btn[data-active="false"] { color: rgba(255,255,255,0.6); }
+
+  .facility-icon { transition: transform .35s ease; }
+  .card-hover:hover .facility-icon { transform: scale(1.08) rotate(-2deg); }
+
+  details.faq-item summary { list-style: none; cursor: pointer; }
+  details.faq-item summary::-webkit-details-marker { display: none; }
+  details.faq-item .faq-chevron { transition: transform .25s ease; }
+  details.faq-item[open] .faq-chevron { transform: rotate(180deg); }
+  details.faq-item[open] .faq-answer { animation: faqOpen .25s ease; }
+  @keyframes faqOpen { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+  #portal-toast {
+    transition: opacity .3s ease, transform .3s ease;
+  }
 </style>
 </head>
 
@@ -106,7 +124,7 @@
 
 <!-- ============ NAVBAR ============ -->
 <header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
-  <nav class="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-20">
+  <nav class="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-20 gap-4">
     <a href="#top" class="flex items-center gap-3 group shrink-0">
       <svg id="nav-logo" viewBox="0 0 64 64" class="w-10 h-10 shrink-0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
@@ -123,32 +141,60 @@
         <path d="M32 10 C36 15 39 18.5 38 23 C37.3 26 34.8 27.5 32 27.5 C29.2 27.5 26.7 26 26 23 C25 18.5 28 15 32 10 Z" fill="url(#flameGradientNav)"/>
         <circle cx="32" cy="31" r="1.8" fill="#D4AF37"/>
       </svg>
-      <span class="leading-tight">
+      <span class="leading-tight hidden sm:block">
         <span id="nav-title" class="block font-serif-display font-extrabold text-base sm:text-lg text-white transition-colors tracking-tight">EEG</span>
         <span id="nav-subtitle" class="block text-[9px] sm:text-[10px] tracking-widest uppercase text-gold-400 transition-colors whitespace-nowrap">École d'Éxcellence Espoir de Guinée</span>
       </span>
     </a>
 
-    <div class="hidden lg:flex items-center gap-9">
-      <a href="#about" class="nav-link text-sm font-medium text-white/90 hover:text-gold-400 transition-colors">À Propos</a>
-      <a href="#location" class="nav-link text-sm font-medium text-white/90 hover:text-gold-400 transition-colors">Localisation</a>
-      <a href="#contact" class="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold text-sm px-6 py-3 rounded-full shadow-lg shadow-gold-500/20 transition-all hover:shadow-gold-500/40 hover:scale-[1.03]">
+    <div class="hidden xl:flex items-center gap-6 2xl:gap-7">
+      <a href="#about" class="nav-link text-sm font-medium text-white/90 hover:text-gold-400 transition-colors" data-i18n="nav.about">À Propos</a>
+      <a href="#pedagogy" class="nav-link text-sm font-medium text-white/90 hover:text-gold-400 transition-colors" data-i18n="nav.pedagogy">Pédagogie</a>
+      <a href="#admissions" class="nav-link text-sm font-medium text-white/90 hover:text-gold-400 transition-colors" data-i18n="nav.admissions">Admissions</a>
+      <a href="#calendar" class="nav-link text-sm font-medium text-white/90 hover:text-gold-400 transition-colors" data-i18n="nav.calendar">Calendrier</a>
+      <a href="#campus" class="nav-link text-sm font-medium text-white/90 hover:text-gold-400 transition-colors" data-i18n="nav.campus">Campus</a>
+      <a href="#faq" class="nav-link text-sm font-medium text-white/90 hover:text-gold-400 transition-colors" data-i18n="nav.faq">FAQ</a>
+      <a href="#location" class="nav-link text-sm font-medium text-white/90 hover:text-gold-400 transition-colors" data-i18n="nav.location">Localisation</a>
+    </div>
+
+    <div class="hidden lg:flex items-center gap-3 shrink-0">
+      <div class="flex items-center bg-white/10 rounded-full p-0.5 text-xs font-bold">
+        <button type="button" class="lang-btn px-3 py-1.5 rounded-full" data-lang-btn="fr" data-active="true">FR</button>
+        <button type="button" class="lang-btn px-3 py-1.5 rounded-full" data-lang-btn="en" data-active="false">EN</button>
+      </div>
+      <button type="button" data-portal="parents" class="portal-link nav-link text-xs font-semibold text-white/80 hover:text-gold-400 transition-colors border border-white/20 hover:border-gold-400 rounded-full px-4 py-2 whitespace-nowrap" data-i18n="nav.parents">Espace Parents</button>
+      <button type="button" data-portal="students" class="portal-link nav-link text-xs font-semibold text-white/80 hover:text-gold-400 transition-colors border border-white/20 hover:border-gold-400 rounded-full px-4 py-2 whitespace-nowrap" data-i18n="nav.students">Espace Élèves</button>
+      <a href="#contact" class="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold text-sm px-6 py-3 rounded-full shadow-lg shadow-gold-500/20 transition-all hover:shadow-gold-500/40 hover:scale-[1.03] whitespace-nowrap" data-i18n="nav.apply">
         Postuler
       </a>
     </div>
 
-    <button id="menu-btn" class="lg:hidden text-white p-2" aria-label="Ouvrir le menu">
+    <button id="menu-btn" class="xl:hidden text-white p-2" aria-label="Ouvrir le menu">
       <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
       <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
     </button>
   </nav>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden lg:hidden bg-navy-900/98 backdrop-blur border-t border-white/10">
+  <div id="mobile-menu" class="hidden xl:hidden bg-navy-900/98 backdrop-blur border-t border-white/10 max-h-[80vh] overflow-y-auto">
     <div class="px-6 py-6 flex flex-col gap-5">
-      <a href="#about" class="mobile-link text-white/90 font-medium">À Propos</a>
-      <a href="#location" class="mobile-link text-white/90 font-medium">Localisation</a>
-      <a href="#contact" class="mobile-link inline-flex justify-center items-center bg-gold-500 text-navy-900 font-bold px-6 py-3 rounded-full">Postuler</a>
+      <a href="#about" class="mobile-link text-white/90 font-medium" data-i18n="nav.about">À Propos</a>
+      <a href="#pedagogy" class="mobile-link text-white/90 font-medium" data-i18n="nav.pedagogy">Pédagogie</a>
+      <a href="#admissions" class="mobile-link text-white/90 font-medium" data-i18n="nav.admissions">Admissions</a>
+      <a href="#calendar" class="mobile-link text-white/90 font-medium" data-i18n="nav.calendar">Calendrier</a>
+      <a href="#campus" class="mobile-link text-white/90 font-medium" data-i18n="nav.campus">Campus</a>
+      <a href="#faq" class="mobile-link text-white/90 font-medium" data-i18n="nav.faq">FAQ</a>
+      <a href="#location" class="mobile-link text-white/90 font-medium" data-i18n="nav.location">Localisation</a>
+      <div class="h-px bg-white/10"></div>
+      <div class="flex items-center gap-3">
+        <button type="button" data-portal="parents" class="portal-link mobile-link flex-1 text-center text-xs font-semibold text-white/80 border border-white/20 rounded-full px-4 py-2.5" data-i18n="nav.parents">Espace Parents</button>
+        <button type="button" data-portal="students" class="portal-link mobile-link flex-1 text-center text-xs font-semibold text-white/80 border border-white/20 rounded-full px-4 py-2.5" data-i18n="nav.students">Espace Élèves</button>
+      </div>
+      <div class="flex items-center bg-white/10 rounded-full p-0.5 text-xs font-bold w-fit">
+        <button type="button" class="lang-btn px-4 py-1.5 rounded-full" data-lang-btn="fr" data-active="true">FR</button>
+        <button type="button" class="lang-btn px-4 py-1.5 rounded-full" data-lang-btn="en" data-active="false">EN</button>
+      </div>
+      <a href="#contact" class="mobile-link inline-flex justify-center items-center bg-gold-500 text-navy-900 font-bold px-6 py-3 rounded-full" data-i18n="nav.apply">Postuler</a>
     </div>
   </div>
 </header>
@@ -164,7 +210,7 @@
     <!-- Partnership badge -->
     <div class="fade-up inline-flex items-center gap-3 bg-white/5 border border-white/15 rounded-full px-5 py-2 mb-8">
       <span class="text-lg leading-none">🇸🇪</span>
-      <span class="text-xs sm:text-sm text-white/80 tracking-wide">Partenariat Guinée — Suède</span>
+      <span class="text-xs sm:text-sm text-white/80 tracking-wide" data-i18n="hero.badge">Partenariat Guinée — Suède</span>
       <span class="text-lg leading-none">🇬🇳</span>
     </div>
 
@@ -189,19 +235,19 @@
       <span class="text-gold-400">Espoir de Guinée</span>
     </h1>
 
-    <p class="fade-up font-serif-display italic text-xl sm:text-2xl text-white/90 gold-underline mb-4">
+    <p class="fade-up font-serif-display italic text-xl sm:text-2xl text-white/90 gold-underline mb-4" data-i18n="hero.slogan">
       « Révéler le potentiel. Former les leaders. »
     </p>
 
-    <p class="fade-up text-white/70 max-w-2xl mx-auto text-base sm:text-lg mb-10">
+    <p class="fade-up text-white/70 max-w-2xl mx-auto text-base sm:text-lg mb-10" data-i18n="hero.tagline">
       Ensemble, bâtissons un avenir d'excellence pour nos enfants et notre nation.
     </p>
 
     <div class="fade-up flex flex-col sm:flex-row items-center justify-center gap-4">
-      <a href="#contact" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold px-8 py-4 rounded-full shadow-xl shadow-gold-500/25 transition-all hover:scale-105">
+      <a href="#contact" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold px-8 py-4 rounded-full shadow-xl shadow-gold-500/25 transition-all hover:scale-105" data-i18n="hero.ctaPrimary">
         Prendre Rendez-vous
       </a>
-      <a href="#about" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 border border-white/30 hover:border-gold-400 hover:text-gold-400 text-white font-semibold px-8 py-4 rounded-full transition-all">
+      <a href="#pedagogy" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 border border-white/30 hover:border-gold-400 hover:text-gold-400 text-white font-semibold px-8 py-4 rounded-full transition-all" data-i18n="hero.ctaSecondary">
         Découvrir l'École
       </a>
     </div>
@@ -212,11 +258,11 @@
 <section id="about" class="py-24 sm:py-32 bg-white relative overflow-hidden">
   <div class="max-w-6xl mx-auto px-5 sm:px-8">
     <div class="text-center max-w-3xl mx-auto mb-16 fade-up">
-      <p class="text-gold-600 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-3">Notre Vision</p>
-      <h2 class="font-serif-display text-3xl sm:text-5xl font-bold text-navy-900 mb-6">
+      <p class="text-gold-600 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-3" data-i18n="about.eyebrow">Notre Vision</p>
+      <h2 class="font-serif-display text-3xl sm:text-5xl font-bold text-navy-900 mb-6" data-i18n="about.title">
         Former les leaders de demain
       </h2>
-      <p class="text-navy-700/80 text-base sm:text-lg leading-relaxed">
+      <p class="text-navy-700/80 text-base sm:text-lg leading-relaxed" data-i18n="about.body">
         L'École d'Éxcellence Espoir de Guinée (EEG) est née d'une ambition claire : offrir à la jeunesse guinéenne
         une éducation de standard international, ancrée dans les valeurs locales et ouverte sur le monde. Fruit d'une
         collaboration entre la Guinée et la Suède, notre institution s'engage à révéler le potentiel de chaque élève
@@ -227,29 +273,338 @@
     <div class="grid sm:grid-cols-3 gap-6 sm:gap-8">
       <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-8 text-center">
         <div class="w-14 h-14 mx-auto mb-5 rounded-2xl bg-navy-800 flex items-center justify-center text-2xl">🌍</div>
-        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2">Standards Internationaux</h3>
-        <p class="text-navy-700/70 text-sm leading-relaxed">Un programme académique rigoureux inspiré des meilleures pratiques éducatives suédoises et guinéennes.</p>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="about.card1Title">Standards Internationaux</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="about.card1Desc">Un programme académique rigoureux inspiré des meilleures pratiques éducatives suédoises et guinéennes.</p>
       </div>
       <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-8 text-center">
         <div class="w-14 h-14 mx-auto mb-5 rounded-2xl bg-gold-500 flex items-center justify-center text-2xl">💡</div>
-        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2">Excellence & Innovation</h3>
-        <p class="text-navy-700/70 text-sm leading-relaxed">Des méthodes pédagogiques modernes qui cultivent la pensée critique, la créativité et la confiance en soi.</p>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="about.card2Title">Excellence & Innovation</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="about.card2Desc">Des méthodes pédagogiques modernes qui cultivent la pensée critique, la créativité et la confiance en soi.</p>
       </div>
       <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-8 text-center">
         <div class="w-14 h-14 mx-auto mb-5 rounded-2xl bg-navy-800 flex items-center justify-center text-2xl">🤝</div>
-        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2">Leadership & Valeurs</h3>
-        <p class="text-navy-700/70 text-sm leading-relaxed">Un accompagnement humain fort, au service de la formation de citoyens engagés pour l'avenir de la Guinée.</p>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="about.card3Title">Leadership & Valeurs</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="about.card3Desc">Un accompagnement humain fort, au service de la formation de citoyens engagés pour l'avenir de la Guinée.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PEDAGOGY (SWEDISH MODEL) ============ -->
+<section id="pedagogy" class="py-24 sm:py-32 bg-navy-50/60 relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-14 fade-up">
+      <p class="text-gold-600 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-3" data-i18n="pedagogy.eyebrow">Notre Approche</p>
+      <h2 class="font-serif-display text-3xl sm:text-5xl font-bold text-navy-900 mb-6" data-i18n="pedagogy.title">
+        Notre Pédagogie Inspirée du Modèle Suédois
+      </h2>
+      <p class="text-navy-700/80 text-base sm:text-lg leading-relaxed" data-i18n="pedagogy.intro">
+        Grâce à notre partenariat avec la Suède, l'EEG intègre au curriculum national guinéen des méthodes reconnues
+        internationalement pour leur efficacité : autonomie de l'élève, apprentissage par la pratique et respect du
+        rythme de chaque enfant, dans un cadre exigeant sur le plan académique.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-16">
+      <div class="fade-up card-hover bg-white border border-navy-100 rounded-3xl p-7 text-center shadow-sm">
+        <div class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-navy-800 flex items-center justify-center text-2xl">🧭</div>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="pedagogy.p1Title">Autonomie & Confiance en Soi</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="pedagogy.p1Desc">Les élèves apprennent à s'organiser, à prendre des initiatives et à assumer leurs choix, dès le plus jeune âge.</p>
+      </div>
+      <div class="fade-up card-hover bg-white border border-navy-100 rounded-3xl p-7 text-center shadow-sm">
+        <div class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-gold-500 flex items-center justify-center text-2xl">🔨</div>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="pedagogy.p2Title">Apprentissage par la Pratique</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="pedagogy.p2Desc">Inspirés du « slöjd » suédois, des ateliers manuels et techniques développent la patience, la précision et la créativité.</p>
+      </div>
+      <div class="fade-up card-hover bg-white border border-navy-100 rounded-3xl p-7 text-center shadow-sm">
+        <div class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-navy-800 flex items-center justify-center text-2xl">🌳</div>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="pedagogy.p3Title">Apprentissage en Plein Air</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="pedagogy.p3Desc">Inspiré du « friluftsliv », le contact régulier avec la nature renforce la santé, l'observation et le travail d'équipe.</p>
+      </div>
+      <div class="fade-up card-hover bg-white border border-navy-100 rounded-3xl p-7 text-center shadow-sm">
+        <div class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-gold-500 flex items-center justify-center text-2xl">🧩</div>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="pedagogy.p4Title">Projets Interdisciplinaires</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="pedagogy.p4Desc">Sciences, langues et arts se combinent dans des projets concrets qui donnent du sens aux apprentissages.</p>
+      </div>
+      <div class="fade-up card-hover bg-white border border-navy-100 rounded-3xl p-7 text-center shadow-sm">
+        <div class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-navy-800 flex items-center justify-center text-2xl">⚖️</div>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="pedagogy.p5Title">Égalité, Respect & Démocratie</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="pedagogy.p5Desc">Chaque élève est écouté et valorisé, dans un climat de respect mutuel et de dialogue entre pairs.</p>
+      </div>
+      <div class="fade-up card-hover bg-white border border-navy-100 rounded-3xl p-7 text-center shadow-sm">
+        <div class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-gold-500 flex items-center justify-center text-2xl">🎓</div>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="pedagogy.p6Title">Excellence Académique Exigeante</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="pedagogy.p6Desc">Une exigence académique élevée reste au cœur du parcours, alignée sur le programme national de Guinée.</p>
+      </div>
+    </div>
+
+    <div class="fade-up bg-navy-900 rounded-3xl p-8 sm:p-12 relative overflow-hidden">
+      <div class="absolute inset-0 pattern-overlay opacity-10"></div>
+      <div class="relative grid lg:grid-cols-3 gap-8 items-start">
+        <div class="lg:col-span-1">
+          <p class="text-gold-400 text-xs font-bold tracking-[0.3em] uppercase mb-3" data-i18n="pedagogy.curriculumEyebrow">Notre Curriculum</p>
+          <h3 class="font-serif-display text-2xl sm:text-3xl font-bold text-white mb-4" data-i18n="pedagogy.curriculumTitle">Un Programme National, Enrichi</h3>
+          <p class="text-white/70 text-sm leading-relaxed" data-i18n="pedagogy.curriculumBody">Chaque matière du curriculum guinéen est enseignée selon des méthodes actives suédoises : résolution de problèmes en groupe, projets concrets et évaluation continue du progrès de chaque élève.</p>
+        </div>
+        <div class="lg:col-span-2 grid sm:grid-cols-2 gap-4">
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+            <p class="text-gold-400 font-semibold text-sm mb-2" data-i18n="pedagogy.nationalLabel">Programme National de Guinée</p>
+            <ul class="text-white/70 text-sm space-y-1.5 list-disc list-inside">
+              <li data-i18n="pedagogy.national1">Français, mathématiques, sciences</li>
+              <li data-i18n="pedagogy.national2">Histoire, géographie, éducation civique</li>
+              <li data-i18n="pedagogy.national3">Préparation aux examens nationaux</li>
+            </ul>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+            <p class="text-gold-400 font-semibold text-sm mb-2" data-i18n="pedagogy.swedishLabel">Méthodes Suédoises Intégrées</p>
+            <ul class="text-white/70 text-sm space-y-1.5 list-disc list-inside">
+              <li data-i18n="pedagogy.swedish1">Travail collaboratif en petits groupes</li>
+              <li data-i18n="pedagogy.swedish2">Ateliers pratiques et sorties nature</li>
+              <li data-i18n="pedagogy.swedish3">Suivi individualisé de chaque élève</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ADMISSIONS ============ -->
+<section id="admissions" class="py-24 sm:py-32 bg-white relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
+      <p class="text-gold-600 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-3" data-i18n="admissions.eyebrow">Rejoignez-nous</p>
+      <h2 class="font-serif-display text-3xl sm:text-5xl font-bold text-navy-900 mb-6" data-i18n="admissions.title">Admissions & Inscription</h2>
+      <p class="text-navy-700/80 text-base sm:text-lg leading-relaxed" data-i18n="admissions.intro">Un processus simple en quatre étapes pour rejoindre la première promotion de l'EEG.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-7 relative">
+        <span class="font-serif-display text-4xl font-extrabold text-gold-500/30 absolute top-4 right-5">1</span>
+        <div class="w-12 h-12 rounded-xl bg-navy-800 flex items-center justify-center text-xl mb-5">✅</div>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="admissions.s1Title">Critères d'Admission</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="admissions.s1Desc">Âge correspondant au niveau visé, motivation de l'enfant et de la famille, entretien d'admission.</p>
+      </div>
+      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-7 relative">
+        <span class="font-serif-display text-4xl font-extrabold text-gold-500/30 absolute top-4 right-5">2</span>
+        <div class="w-12 h-12 rounded-xl bg-gold-500 flex items-center justify-center text-xl mb-5">📄</div>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="admissions.s2Title">Dossier Requis</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="admissions.s2Desc">Acte de naissance, bulletins précédents, photos d'identité et fiche de renseignements complétée.</p>
+      </div>
+      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-7 relative">
+        <span class="font-serif-display text-4xl font-extrabold text-gold-500/30 absolute top-4 right-5">3</span>
+        <div class="w-12 h-12 rounded-xl bg-navy-800 flex items-center justify-center text-xl mb-5">💳</div>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="admissions.s3Title">Frais de Scolarité</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="admissions.s3Desc">Grille tarifaire par niveau et facilités de paiement échelonné, communiquées lors de l'entretien.</p>
+      </div>
+      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-7 relative">
+        <span class="font-serif-display text-4xl font-extrabold text-gold-500/30 absolute top-4 right-5">4</span>
+        <div class="w-12 h-12 rounded-xl bg-gold-500 flex items-center justify-center text-xl mb-5">🖥️</div>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="admissions.s4Title">Candidature en Ligne</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="admissions.s4Desc">Remplissez le formulaire de contact ci-dessous ; notre équipe des admissions vous recontacte sous 48h.</p>
+      </div>
+    </div>
+
+    <div class="fade-up text-center mt-12">
+      <a href="#contact" class="inline-flex items-center gap-2 bg-navy-900 hover:bg-navy-800 text-white font-bold px-8 py-4 rounded-full shadow-lg transition-all hover:scale-105" data-i18n="admissions.cta">
+        Commencer ma Candidature
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CALENDAR & NEWS ============ -->
+<section id="calendar" class="py-24 sm:py-32 bg-navy-50/60 relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
+      <p class="text-gold-600 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-3" data-i18n="calendar.eyebrow">Vie Scolaire</p>
+      <h2 class="font-serif-display text-3xl sm:text-5xl font-bold text-navy-900" data-i18n="calendar.title">Calendrier Académique & Actualités</h2>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-10">
+      <div class="fade-up bg-white rounded-3xl border border-navy-100 shadow-sm p-6 sm:p-8">
+        <h3 class="font-serif-display text-xl font-bold text-navy-900 mb-6" data-i18n="calendar.termsTitle">Année Académique 2025 – 2026</h3>
+        <ul class="space-y-4">
+          <li class="flex items-center justify-between border-b border-navy-100 pb-4">
+            <span class="text-navy-800 font-medium text-sm" data-i18n="calendar.term1">Rentrée Scolaire</span>
+            <span class="text-gold-600 font-bold text-sm">Octobre 2025</span>
+          </li>
+          <li class="flex items-center justify-between border-b border-navy-100 pb-4">
+            <span class="text-navy-800 font-medium text-sm" data-i18n="calendar.term2">Vacances de Fin d'Année</span>
+            <span class="text-gold-600 font-bold text-sm">Déc. 2025 – Jan. 2026</span>
+          </li>
+          <li class="flex items-center justify-between border-b border-navy-100 pb-4">
+            <span class="text-navy-800 font-medium text-sm" data-i18n="calendar.term3">Vacances de Printemps</span>
+            <span class="text-gold-600 font-bold text-sm">Avril 2026</span>
+          </li>
+          <li class="flex items-center justify-between">
+            <span class="text-navy-800 font-medium text-sm" data-i18n="calendar.term4">Fin de l'Année Scolaire</span>
+            <span class="text-gold-600 font-bold text-sm">Juillet 2026</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="fade-up space-y-5">
+        <h3 class="font-serif-display text-xl font-bold text-navy-900 mb-1" data-i18n="calendar.newsTitle">Actualités & Annonces</h3>
+        <div class="card-hover bg-white rounded-2xl border border-navy-100 shadow-sm p-5 flex gap-4">
+          <div class="w-11 h-11 rounded-xl bg-navy-800 flex items-center justify-center text-lg shrink-0">📢</div>
+          <div>
+            <p class="font-semibold text-navy-900 text-sm" data-i18n="calendar.news1Title">Ouverture des Inscriptions 2025-2026</p>
+            <p class="text-navy-700/70 text-sm" data-i18n="calendar.news1Desc">Les candidatures sont désormais ouvertes pour toutes les classes. Places limitées.</p>
+          </div>
+        </div>
+        <div class="card-hover bg-white rounded-2xl border border-navy-100 shadow-sm p-5 flex gap-4">
+          <div class="w-11 h-11 rounded-xl bg-gold-500 flex items-center justify-center text-lg shrink-0">🏫</div>
+          <div>
+            <p class="font-semibold text-navy-900 text-sm" data-i18n="calendar.news2Title">Journées Portes Ouvertes</p>
+            <p class="text-navy-700/70 text-sm" data-i18n="calendar.news2Desc">Venez visiter le campus et rencontrer notre équipe pédagogique sur rendez-vous.</p>
+          </div>
+        </div>
+        <div class="card-hover bg-white rounded-2xl border border-navy-100 shadow-sm p-5 flex gap-4">
+          <div class="w-11 h-11 rounded-xl bg-navy-800 flex items-center justify-center text-lg shrink-0">🇸🇪</div>
+          <div>
+            <p class="font-semibold text-navy-900 text-sm" data-i18n="calendar.news3Title">Partenariat Guinée-Suède</p>
+            <p class="text-navy-700/70 text-sm" data-i18n="calendar.news3Desc">Lancement des premiers échanges pédagogiques avec nos partenaires suédois.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FACILITIES & CAMPUS ============ -->
+<section id="campus" class="py-24 sm:py-32 bg-white relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
+      <p class="text-gold-600 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-3" data-i18n="facilities.eyebrow">Notre Campus</p>
+      <h2 class="font-serif-display text-3xl sm:text-5xl font-bold text-navy-900 mb-6" data-i18n="facilities.title">Nos Infrastructures</h2>
+      <p class="text-navy-700/80 text-base sm:text-lg leading-relaxed" data-i18n="facilities.intro">Un environnement moderne et sécurisé, pensé pour l'épanouissement intellectuel et physique de chaque élève.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-7 text-center">
+        <div class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-navy-800 flex items-center justify-center text-2xl">🏫</div>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="facilities.f1Title">Salles de Classe Modernes</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="facilities.f1Desc">Espaces lumineux et aérés, équipés pour l'apprentissage actif en petits effectifs.</p>
+      </div>
+      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-7 text-center">
+        <div class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-gold-500 flex items-center justify-center text-2xl">💻</div>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="facilities.f2Title">Laboratoire Informatique</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="facilities.f2Desc">Initiation au numérique et aux outils bureautiques dès le primaire.</p>
+      </div>
+      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-7 text-center">
+        <div class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-navy-800 flex items-center justify-center text-2xl">📚</div>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="facilities.f3Title">Bibliothèque</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="facilities.f3Desc">Un espace calme dédié à la lecture, la recherche et l'étude autonome.</p>
+      </div>
+      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-7 text-center">
+        <div class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-gold-500 flex items-center justify-center text-2xl">⚽</div>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="facilities.f4Title">Terrain de Sport</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="facilities.f4Desc">Espace extérieur pour l'éducation physique, le jeu et la vie collective.</p>
+      </div>
+      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-7 text-center">
+        <div class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-navy-800 flex items-center justify-center text-2xl">🪚</div>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="facilities.f5Title">Atelier Manuel (Slöjd)</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="facilities.f5Desc">Un atelier dédié aux travaux manuels et techniques inspiré de la tradition suédoise.</p>
+      </div>
+      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-7 text-center">
+        <div class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-gold-500 flex items-center justify-center text-2xl">🌳</div>
+        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="facilities.f6Title">Espace Extérieur & Jardin</h3>
+        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="facilities.f6Desc">Un jardin pédagogique pour les activités de plein air et l'éveil à la nature.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST & TRANSPARENCY ============ -->
+<section id="trust" class="py-24 sm:py-32 bg-navy-50/60 relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
+      <p class="text-gold-600 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-3" data-i18n="trust.eyebrow">Confiance & Transparence</p>
+      <h2 class="font-serif-display text-3xl sm:text-5xl font-bold text-navy-900" data-i18n="trust.title">Un Engagement Clair envers les Familles</h2>
+    </div>
+
+    <!-- Accreditations -->
+    <div class="fade-up grid sm:grid-cols-3 gap-6 mb-16">
+      <div class="bg-white rounded-2xl border border-navy-100 shadow-sm p-6 text-center">
+        <div class="text-3xl mb-3">🇸🇪🇬🇳</div>
+        <p class="font-semibold text-navy-900 text-sm" data-i18n="trust.acc1">Partenariat Institutionnel Guinée-Suède</p>
+      </div>
+      <div class="bg-white rounded-2xl border border-navy-100 shadow-sm p-6 text-center">
+        <div class="text-3xl mb-3">📘</div>
+        <p class="font-semibold text-navy-900 text-sm" data-i18n="trust.acc2">Programme Aligné sur le Curriculum National</p>
+      </div>
+      <div class="bg-white rounded-2xl border border-navy-100 shadow-sm p-6 text-center">
+        <div class="text-3xl mb-3">🛡️</div>
+        <p class="font-semibold text-navy-900 text-sm" data-i18n="trust.acc3">Engagement Qualité, Sécurité & Éthique</p>
+      </div>
+    </div>
+
+    <!-- Leadership -->
+    <div class="mb-16">
+      <h3 class="fade-up font-serif-display text-2xl font-bold text-navy-900 text-center mb-8" data-i18n="trust.leadershipTitle">Notre Équipe de Direction</h3>
+      <div class="grid sm:grid-cols-3 gap-6">
+        <div class="fade-up card-hover bg-white rounded-2xl border border-navy-100 shadow-sm p-6 text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-navy-800 flex items-center justify-center text-2xl">🧑‍💼</div>
+          <p class="font-serif-display font-bold text-navy-900" data-i18n="trust.lead1Role">Direction Générale</p>
+          <p class="text-navy-700/60 text-xs mt-1" data-i18n="trust.lead1Note">Nomination en cours</p>
+        </div>
+        <div class="fade-up card-hover bg-white rounded-2xl border border-navy-100 shadow-sm p-6 text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gold-500 flex items-center justify-center text-2xl">👩‍🏫</div>
+          <p class="font-serif-display font-bold text-navy-900" data-i18n="trust.lead2Role">Direction Pédagogique</p>
+          <p class="text-navy-700/60 text-xs mt-1" data-i18n="trust.lead2Note">Nomination en cours</p>
+        </div>
+        <div class="fade-up card-hover bg-white rounded-2xl border border-navy-100 shadow-sm p-6 text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-navy-800 flex items-center justify-center text-2xl">🤝</div>
+          <p class="font-serif-display font-bold text-navy-900" data-i18n="trust.lead3Role">Coordination du Partenariat Suédois</p>
+          <p class="text-navy-700/60 text-xs mt-1" data-i18n="trust.lead3Note">Nomination en cours</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonials placeholder -->
+    <div class="fade-up bg-white rounded-3xl border border-dashed border-navy-200 p-10 text-center mb-16">
+      <div class="text-3xl mb-3">💬</div>
+      <p class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="trust.testimonialsTitle">Témoignages</p>
+      <p class="text-navy-700/60 text-sm" data-i18n="trust.testimonialsNote">Les témoignages de nos premières familles et élèves seront publiés ici dès la rentrée.</p>
+    </div>
+
+    <!-- FAQ -->
+    <div>
+      <h3 class="fade-up font-serif-display text-2xl font-bold text-navy-900 text-center mb-8" id="faq" data-i18n="trust.faqTitle">Questions Fréquentes</h3>
+      <div class="max-w-3xl mx-auto space-y-3">
+        <details class="faq-item fade-up bg-white rounded-2xl border border-navy-100 shadow-sm px-6 py-4" open>
+          <summary class="flex items-center justify-between gap-4 font-semibold text-navy-900 text-sm sm:text-base" data-i18n="trust.faq1Q">Quelle est la langue d'enseignement à l'EEG ?</summary>
+          <svg class="hidden"></svg>
+          <p class="faq-answer text-navy-700/70 text-sm mt-3 leading-relaxed" data-i18n="trust.faq1A">L'enseignement se fait en français, conformément au programme national, avec une initiation progressive à l'anglais et une ouverture aux méthodes suédoises.</p>
+        </details>
+        <details class="faq-item fade-up bg-white rounded-2xl border border-navy-100 shadow-sm px-6 py-4">
+          <summary class="flex items-center justify-between gap-4 font-semibold text-navy-900 text-sm sm:text-base" data-i18n="trust.faq2Q">Quels niveaux scolaires sont proposés ?</summary>
+          <p class="faq-answer text-navy-700/70 text-sm mt-3 leading-relaxed" data-i18n="trust.faq2A">L'EEG accueille les élèves du préscolaire au primaire, avec une extension progressive vers le collège selon la demande.</p>
+        </details>
+        <details class="faq-item fade-up bg-white rounded-2xl border border-navy-100 shadow-sm px-6 py-4">
+          <summary class="flex items-center justify-between gap-4 font-semibold text-navy-900 text-sm sm:text-base" data-i18n="trust.faq3Q">En quoi consiste le partenariat avec la Suède ?</summary>
+          <p class="faq-answer text-navy-700/70 text-sm mt-3 leading-relaxed" data-i18n="trust.faq3A">Ce partenariat institutionnel permet d'intégrer des méthodes pédagogiques suédoises reconnues (autonomie, apprentissage par la pratique, plein air) au programme national guinéen.</p>
+        </details>
+        <details class="faq-item fade-up bg-white rounded-2xl border border-navy-100 shadow-sm px-6 py-4">
+          <summary class="flex items-center justify-between gap-4 font-semibold text-navy-900 text-sm sm:text-base" data-i18n="trust.faq4Q">Comment se déroule le processus d'inscription ?</summary>
+          <p class="faq-answer text-navy-700/70 text-sm mt-3 leading-relaxed" data-i18n="trust.faq4A">Remplissez le formulaire de contact, notre équipe vous recontacte pour un entretien, puis vous complétez le dossier d'inscription avec les documents requis.</p>
+        </details>
+        <details class="faq-item fade-up bg-white rounded-2xl border border-navy-100 shadow-sm px-6 py-4">
+          <summary class="flex items-center justify-between gap-4 font-semibold text-navy-900 text-sm sm:text-base" data-i18n="trust.faq5Q">Y a-t-il un uniforme scolaire ?</summary>
+          <p class="faq-answer text-navy-700/70 text-sm mt-3 leading-relaxed" data-i18n="trust.faq5A">Oui, un uniforme est requis pour tous les élèves ; les détails sont communiqués lors de l'inscription.</p>
+        </details>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ LOCATION & CONTACT ============ -->
-<section id="location" class="py-24 sm:py-32 bg-navy-50/60 relative overflow-hidden">
+<section id="location" class="py-24 sm:py-32 bg-white relative overflow-hidden">
   <div class="max-w-6xl mx-auto px-5 sm:px-8">
     <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
-      <p class="text-gold-600 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-3">Où nous trouver</p>
-      <h2 class="font-serif-display text-3xl sm:text-5xl font-bold text-navy-900">
+      <p class="text-gold-600 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-3" data-i18n="location.eyebrow">Où nous trouver</p>
+      <h2 class="font-serif-display text-3xl sm:text-5xl font-bold text-navy-900" data-i18n="location.title">
         Localisation & Contact
       </h2>
     </div>
@@ -267,32 +622,32 @@
           </iframe>
         </div>
 
-        <div class="bg-white rounded-3xl border border-navy-100 p-6 sm:p-8 space-y-5 shadow-sm">
+        <div class="bg-navy-50/60 rounded-3xl border border-navy-100 p-6 sm:p-8 space-y-5 shadow-sm">
           <div class="flex items-start gap-4">
             <div class="w-11 h-11 rounded-xl bg-navy-800 flex items-center justify-center text-lg shrink-0">📍</div>
             <div>
-              <p class="font-semibold text-navy-900">Adresse</p>
+              <p class="font-semibold text-navy-900" data-i18n="location.addressLabel">Adresse</p>
               <p class="text-navy-700/70 text-sm">Lambanyi, Carrefour Canadien, Conakry – Guinée</p>
             </div>
           </div>
           <div class="flex items-start gap-4">
             <div class="w-11 h-11 rounded-xl bg-navy-800 flex items-center justify-center text-lg shrink-0">📞</div>
             <div>
-              <p class="font-semibold text-navy-900">Téléphone</p>
+              <p class="font-semibold text-navy-900" data-i18n="location.phoneLabel">Téléphone</p>
               <a href="tel:+22462000000" class="text-navy-700/70 text-sm hover:text-gold-600 transition-colors">+224 62 00 00 00</a>
             </div>
           </div>
           <div class="flex items-start gap-4">
             <div class="w-11 h-11 rounded-xl bg-navy-800 flex items-center justify-center text-lg shrink-0">✉️</div>
             <div>
-              <p class="font-semibold text-navy-900">Email</p>
+              <p class="font-semibold text-navy-900" data-i18n="location.emailLabel">Email</p>
               <a href="mailto:contact@ee-gn.org" class="text-navy-700/70 text-sm hover:text-gold-600 transition-colors">contact@ee-gn.org</a>
             </div>
           </div>
           <div class="flex items-start gap-4">
             <div class="w-11 h-11 rounded-xl bg-navy-800 flex items-center justify-center text-lg shrink-0">🌐</div>
             <div>
-              <p class="font-semibold text-navy-900">Site web</p>
+              <p class="font-semibold text-navy-900" data-i18n="location.webLabel">Site web</p>
               <a href="https://www.ee-gn.org" target="_blank" rel="noopener" class="text-navy-700/70 text-sm hover:text-gold-600 transition-colors">www.ee-gn.org</a>
             </div>
           </div>
@@ -300,48 +655,48 @@
       </div>
 
       <!-- Contact / Inquiry Form -->
-      <div id="contact" class="fade-up bg-white rounded-3xl border border-navy-100 shadow-lg p-6 sm:p-10">
-        <h3 class="font-serif-display text-2xl font-bold text-navy-900 mb-2">Contactez-nous</h3>
-        <p class="text-navy-700/70 text-sm mb-8">Demandez des informations sur les admissions, nos programmes, ou planifiez une visite du campus.</p>
+      <div id="contact" class="fade-up bg-navy-50/60 rounded-3xl border border-navy-100 shadow-lg p-6 sm:p-10">
+        <h3 class="font-serif-display text-2xl font-bold text-navy-900 mb-2" data-i18n="contact.formTitle">Contactez-nous</h3>
+        <p class="text-navy-700/70 text-sm mb-8" data-i18n="contact.formSubtitle">Demandez des informations sur les admissions, nos programmes, ou planifiez une visite du campus.</p>
 
         <form id="rsvp-form" class="space-y-5">
           <div>
-            <label for="fullname" class="block text-sm font-medium text-navy-900 mb-1.5">Nom complet</label>
-            <input type="text" id="fullname" name="fullname" required placeholder="Votre nom et prénom"
-              class="w-full rounded-xl border border-navy-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 px-4 py-3 text-sm transition-all" />
+            <label for="fullname" class="block text-sm font-medium text-navy-900 mb-1.5" data-i18n="contact.nameLabel">Nom complet</label>
+            <input type="text" id="fullname" name="fullname" required placeholder="Votre nom et prénom" data-i18n-ph="contact.namePh"
+              class="w-full rounded-xl border border-navy-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 px-4 py-3 text-sm transition-all bg-white" />
           </div>
           <div class="grid sm:grid-cols-2 gap-5">
             <div>
-              <label for="phone" class="block text-sm font-medium text-navy-900 mb-1.5">Téléphone</label>
+              <label for="phone" class="block text-sm font-medium text-navy-900 mb-1.5" data-i18n="contact.phoneLabel">Téléphone</label>
               <input type="tel" id="phone" name="phone" required placeholder="+224 6X XX XX XX"
-                class="w-full rounded-xl border border-navy-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 px-4 py-3 text-sm transition-all" />
+                class="w-full rounded-xl border border-navy-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 px-4 py-3 text-sm transition-all bg-white" />
             </div>
             <div>
-              <label for="email" class="block text-sm font-medium text-navy-900 mb-1.5">Email</label>
+              <label for="email" class="block text-sm font-medium text-navy-900 mb-1.5" data-i18n="contact.emailLabel">Email</label>
               <input type="email" id="email" name="email" placeholder="vous@email.com"
-                class="w-full rounded-xl border border-navy-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 px-4 py-3 text-sm transition-all" />
+                class="w-full rounded-xl border border-navy-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 px-4 py-3 text-sm transition-all bg-white" />
             </div>
           </div>
           <div>
-            <label for="reason" class="block text-sm font-medium text-navy-900 mb-1.5">Objet</label>
+            <label for="reason" class="block text-sm font-medium text-navy-900 mb-1.5" data-i18n="contact.reasonLabel">Objet</label>
             <select id="reason" name="reason"
               class="w-full rounded-xl border border-navy-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 px-4 py-3 text-sm transition-all bg-white">
-              <option>Demande d'inscription</option>
-              <option>Information générale</option>
-              <option>Visite du campus</option>
-              <option>Partenariat / autre</option>
+              <option data-i18n="contact.reason1">Demande d'inscription</option>
+              <option data-i18n="contact.reason2">Information générale</option>
+              <option data-i18n="contact.reason3">Visite du campus</option>
+              <option data-i18n="contact.reason4">Partenariat / autre</option>
             </select>
           </div>
           <div>
-            <label for="message" class="block text-sm font-medium text-navy-900 mb-1.5">Message (optionnel)</label>
-            <textarea id="message" name="message" rows="3" placeholder="Écrivez votre message ici..."
-              class="w-full rounded-xl border border-navy-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 px-4 py-3 text-sm transition-all resize-none"></textarea>
+            <label for="message" class="block text-sm font-medium text-navy-900 mb-1.5" data-i18n="contact.messageLabel">Message (optionnel)</label>
+            <textarea id="message" name="message" rows="3" placeholder="Écrivez votre message ici..." data-i18n-ph="contact.messagePh"
+              class="w-full rounded-xl border border-navy-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 px-4 py-3 text-sm transition-all resize-none bg-white"></textarea>
           </div>
           <button type="submit"
-            class="w-full bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold py-4 rounded-xl shadow-lg shadow-gold-500/20 transition-all hover:scale-[1.01]">
+            class="w-full bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold py-4 rounded-xl shadow-lg shadow-gold-500/20 transition-all hover:scale-[1.01]" data-i18n="contact.submit">
             Envoyer ma demande
           </button>
-          <p id="form-success" class="hidden text-center text-sm font-medium text-navy-800 bg-gold-100 border border-gold-300 rounded-xl py-3">
+          <p id="form-success" class="hidden text-center text-sm font-medium text-navy-800 bg-gold-100 border border-gold-300 rounded-xl py-3" data-i18n="contact.success">
             ✅ Merci ! Votre demande a bien été enregistrée. Nous vous contacterons très prochainement.
           </p>
         </form>
@@ -354,8 +709,8 @@
 <footer class="bg-navy-950 text-white pt-16 pb-8 relative overflow-hidden">
   <div class="absolute inset-0 pattern-overlay opacity-5"></div>
   <div class="relative max-w-6xl mx-auto px-5 sm:px-8">
-    <div class="grid sm:grid-cols-3 gap-10 pb-10 border-b border-white/10">
-      <div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-10 border-b border-white/10">
+      <div class="lg:col-span-1">
         <div class="flex items-center gap-3 mb-4">
           <svg viewBox="0 0 64 64" class="w-9 h-9 shrink-0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <defs>
@@ -374,7 +729,7 @@
           </svg>
           <span class="font-serif-display font-bold text-lg">EEG</span>
         </div>
-        <p class="text-white/60 text-sm leading-relaxed mb-4">
+        <p class="text-white/60 text-sm leading-relaxed mb-4" data-i18n="footer.about">
           École d'Éxcellence Espoir de Guinée — Un partenariat Guinée & Suède pour révéler le potentiel et former les leaders de demain.
         </p>
         <div class="flex items-center gap-2 text-sm text-white/60">
@@ -383,39 +738,258 @@
       </div>
 
       <div>
-        <h4 class="font-serif-display font-bold text-gold-400 mb-4">Liens Rapides</h4>
+        <h4 class="font-serif-display font-bold text-gold-400 mb-4" data-i18n="footer.linksTitle">Liens Rapides</h4>
         <ul class="space-y-2.5 text-sm text-white/60">
-          <li><a href="#about" class="hover:text-gold-400 transition-colors">À Propos</a></li>
-          <li><a href="#location" class="hover:text-gold-400 transition-colors">Localisation</a></li>
-          <li><a href="#contact" class="hover:text-gold-400 transition-colors">Postuler</a></li>
+          <li><a href="#about" class="hover:text-gold-400 transition-colors" data-i18n="nav.about">À Propos</a></li>
+          <li><a href="#pedagogy" class="hover:text-gold-400 transition-colors" data-i18n="nav.pedagogy">Pédagogie</a></li>
+          <li><a href="#admissions" class="hover:text-gold-400 transition-colors" data-i18n="nav.admissions">Admissions</a></li>
+          <li><a href="#calendar" class="hover:text-gold-400 transition-colors" data-i18n="nav.calendar">Calendrier</a></li>
+          <li><a href="#campus" class="hover:text-gold-400 transition-colors" data-i18n="nav.campus">Campus</a></li>
+          <li><a href="#faq" class="hover:text-gold-400 transition-colors" data-i18n="nav.faq">FAQ</a></li>
         </ul>
       </div>
 
       <div>
-        <h4 class="font-serif-display font-bold text-gold-400 mb-4">Contact</h4>
-        <ul class="space-y-2.5 text-sm text-white/60">
+        <h4 class="font-serif-display font-bold text-gold-400 mb-4" data-i18n="footer.contactTitle">Contact</h4>
+        <ul class="space-y-2.5 text-sm text-white/60 mb-5">
           <li>Lambanyi, Carrefour Canadien, Conakry – Guinée</li>
           <li><a href="tel:+22462000000" class="hover:text-gold-400 transition-colors">+224 62 00 00 00</a></li>
           <li><a href="mailto:contact@ee-gn.org" class="hover:text-gold-400 transition-colors">contact@ee-gn.org</a></li>
           <li><a href="https://www.ee-gn.org" target="_blank" rel="noopener" class="hover:text-gold-400 transition-colors">www.ee-gn.org</a></li>
         </ul>
-        <div class="flex items-center gap-4 mt-5">
+        <div class="flex items-center gap-4">
           <a href="#" aria-label="Facebook" class="w-9 h-9 rounded-full bg-white/10 hover:bg-gold-500 hover:text-navy-900 flex items-center justify-center text-sm transition-colors">f</a>
           <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-full bg-white/10 hover:bg-gold-500 hover:text-navy-900 flex items-center justify-center text-sm transition-colors">ig</a>
           <a href="#" aria-label="LinkedIn" class="w-9 h-9 rounded-full bg-white/10 hover:bg-gold-500 hover:text-navy-900 flex items-center justify-center text-sm transition-colors">in</a>
           <a href="#" aria-label="WhatsApp" class="w-9 h-9 rounded-full bg-white/10 hover:bg-gold-500 hover:text-navy-900 flex items-center justify-center text-sm transition-colors">wa</a>
         </div>
       </div>
+
+      <div>
+        <h4 class="font-serif-display font-bold text-gold-400 mb-4" data-i18n="footer.mapTitle">Carte</h4>
+        <div class="rounded-2xl overflow-hidden border border-white/10 h-40">
+          <iframe
+            title="EEG Mini Map"
+            src="https://www.google.com/maps?q=Lambanyi,+Carrefour+Canadien,+Conakry,+Guin%C3%A9e&output=embed"
+            class="w-full h-full border-0 grayscale invert-[0.9] contrast-[1.1]"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <ul class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-white/40 mt-4">
+          <li><a href="#" class="hover:text-gold-400 transition-colors" data-i18n="footer.legal">Mentions Légales</a></li>
+          <li><a href="#" class="hover:text-gold-400 transition-colors" data-i18n="footer.privacy">Politique de Confidentialité</a></li>
+        </ul>
+      </div>
     </div>
 
-    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/40">
-      <p>© <span id="year"></span> École d'Éxcellence Espoir de Guinée (EEG). Tous droits réservés.</p>
-      <p class="font-serif-display italic text-gold-400/80">« Révéler le potentiel. Former les leaders. »</p>
+    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40">
+      <p data-i18n="footer.copyright">© <span id="year"></span> École d'Éxcellence Espoir de Guinée (EEG). Tous droits réservés.</p>
+      <p class="font-serif-display italic text-gold-400/80" data-i18n="hero.slogan">« Révéler le potentiel. Former les leaders. »</p>
+    </div>
+    <div class="pt-4 text-center text-[11px] text-white/30">
+      Designed and Created by Al-Falah Marketing
     </div>
   </div>
 </footer>
 
+<!-- Portal toast -->
+<div id="portal-toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] opacity-0 translate-y-4 pointer-events-none bg-navy-900 text-white text-sm font-medium px-6 py-3 rounded-full shadow-xl border border-gold-500/30"></div>
+
 <script>
+  // ---------- i18n ----------
+  const i18n = {
+    fr: {
+      'nav.about': 'À Propos', 'nav.pedagogy': 'Pédagogie', 'nav.admissions': 'Admissions',
+      'nav.calendar': 'Calendrier', 'nav.campus': 'Campus', 'nav.faq': 'FAQ', 'nav.location': 'Localisation',
+      'nav.parents': 'Espace Parents', 'nav.students': 'Espace Élèves', 'nav.apply': 'Postuler',
+      'hero.badge': 'Partenariat Guinée — Suède',
+      'hero.slogan': '« Révéler le potentiel. Former les leaders. »',
+      'hero.tagline': "Ensemble, bâtissons un avenir d'excellence pour nos enfants et notre nation.",
+      'hero.ctaPrimary': 'Prendre Rendez-vous', 'hero.ctaSecondary': "Découvrir l'École",
+      'about.eyebrow': 'Notre Vision', 'about.title': 'Former les leaders de demain',
+      'about.body': "L'École d'Éxcellence Espoir de Guinée (EEG) est née d'une ambition claire : offrir à la jeunesse guinéenne une éducation de standard international, ancrée dans les valeurs locales et ouverte sur le monde. Fruit d'une collaboration entre la Guinée et la Suède, notre institution s'engage à révéler le potentiel de chaque élève et à former une nouvelle génération de leaders responsables, créatifs et compétitifs.",
+      'about.card1Title': 'Standards Internationaux', 'about.card1Desc': 'Un programme académique rigoureux inspiré des meilleures pratiques éducatives suédoises et guinéennes.',
+      'about.card2Title': 'Excellence & Innovation', 'about.card2Desc': 'Des méthodes pédagogiques modernes qui cultivent la pensée critique, la créativité et la confiance en soi.',
+      'about.card3Title': 'Leadership & Valeurs', 'about.card3Desc': 'Un accompagnement humain fort, au service de la formation de citoyens engagés pour l’avenir de la Guinée.',
+      'pedagogy.eyebrow': 'Notre Approche', 'pedagogy.title': 'Notre Pédagogie Inspirée du Modèle Suédois',
+      'pedagogy.intro': "Grâce à notre partenariat avec la Suède, l'EEG intègre au curriculum national guinéen des méthodes reconnues internationalement pour leur efficacité : autonomie de l'élève, apprentissage par la pratique et respect du rythme de chaque enfant, dans un cadre exigeant sur le plan académique.",
+      'pedagogy.p1Title': 'Autonomie & Confiance en Soi', 'pedagogy.p1Desc': "Les élèves apprennent à s'organiser, à prendre des initiatives et à assumer leurs choix, dès le plus jeune âge.",
+      'pedagogy.p2Title': 'Apprentissage par la Pratique', 'pedagogy.p2Desc': "Inspirés du « slöjd » suédois, des ateliers manuels et techniques développent la patience, la précision et la créativité.",
+      'pedagogy.p3Title': 'Apprentissage en Plein Air', 'pedagogy.p3Desc': "Inspiré du « friluftsliv », le contact régulier avec la nature renforce la santé, l'observation et le travail d'équipe.",
+      'pedagogy.p4Title': 'Projets Interdisciplinaires', 'pedagogy.p4Desc': 'Sciences, langues et arts se combinent dans des projets concrets qui donnent du sens aux apprentissages.',
+      'pedagogy.p5Title': 'Égalité, Respect & Démocratie', 'pedagogy.p5Desc': 'Chaque élève est écouté et valorisé, dans un climat de respect mutuel et de dialogue entre pairs.',
+      'pedagogy.p6Title': 'Excellence Académique Exigeante', 'pedagogy.p6Desc': 'Une exigence académique élevée reste au cœur du parcours, alignée sur le programme national de Guinée.',
+      'pedagogy.curriculumEyebrow': 'Notre Curriculum', 'pedagogy.curriculumTitle': 'Un Programme National, Enrichi',
+      'pedagogy.curriculumBody': 'Chaque matière du curriculum guinéen est enseignée selon des méthodes actives suédoises : résolution de problèmes en groupe, projets concrets et évaluation continue du progrès de chaque élève.',
+      'pedagogy.nationalLabel': 'Programme National de Guinée', 'pedagogy.national1': 'Français, mathématiques, sciences', 'pedagogy.national2': 'Histoire, géographie, éducation civique', 'pedagogy.national3': 'Préparation aux examens nationaux',
+      'pedagogy.swedishLabel': 'Méthodes Suédoises Intégrées', 'pedagogy.swedish1': 'Travail collaboratif en petits groupes', 'pedagogy.swedish2': 'Ateliers pratiques et sorties nature', 'pedagogy.swedish3': 'Suivi individualisé de chaque élève',
+      'admissions.eyebrow': 'Rejoignez-nous', 'admissions.title': 'Admissions & Inscription',
+      'admissions.intro': "Un processus simple en quatre étapes pour rejoindre la première promotion de l'EEG.",
+      'admissions.s1Title': "Critères d'Admission", 'admissions.s1Desc': "Âge correspondant au niveau visé, motivation de l'enfant et de la famille, entretien d'admission.",
+      'admissions.s2Title': 'Dossier Requis', 'admissions.s2Desc': "Acte de naissance, bulletins précédents, photos d'identité et fiche de renseignements complétée.",
+      'admissions.s3Title': 'Frais de Scolarité', 'admissions.s3Desc': "Grille tarifaire par niveau et facilités de paiement échelonné, communiquées lors de l'entretien.",
+      'admissions.s4Title': 'Candidature en Ligne', 'admissions.s4Desc': 'Remplissez le formulaire de contact ci-dessous ; notre équipe des admissions vous recontacte sous 48h.',
+      'admissions.cta': 'Commencer ma Candidature',
+      'calendar.eyebrow': 'Vie Scolaire', 'calendar.title': 'Calendrier Académique & Actualités',
+      'calendar.termsTitle': 'Année Académique 2025 – 2026',
+      'calendar.term1': 'Rentrée Scolaire', 'calendar.term2': "Vacances de Fin d'Année", 'calendar.term3': 'Vacances de Printemps', 'calendar.term4': "Fin de l'Année Scolaire",
+      'calendar.newsTitle': 'Actualités & Annonces',
+      'calendar.news1Title': 'Ouverture des Inscriptions 2025-2026', 'calendar.news1Desc': 'Les candidatures sont désormais ouvertes pour toutes les classes. Places limitées.',
+      'calendar.news2Title': 'Journées Portes Ouvertes', 'calendar.news2Desc': 'Venez visiter le campus et rencontrer notre équipe pédagogique sur rendez-vous.',
+      'calendar.news3Title': 'Partenariat Guinée-Suède', 'calendar.news3Desc': 'Lancement des premiers échanges pédagogiques avec nos partenaires suédois.',
+      'facilities.eyebrow': 'Notre Campus', 'facilities.title': 'Nos Infrastructures',
+      'facilities.intro': "Un environnement moderne et sécurisé, pensé pour l'épanouissement intellectuel et physique de chaque élève.",
+      'facilities.f1Title': 'Salles de Classe Modernes', 'facilities.f1Desc': "Espaces lumineux et aérés, équipés pour l'apprentissage actif en petits effectifs.",
+      'facilities.f2Title': 'Laboratoire Informatique', 'facilities.f2Desc': 'Initiation au numérique et aux outils bureautiques dès le primaire.',
+      'facilities.f3Title': 'Bibliothèque', 'facilities.f3Desc': "Un espace calme dédié à la lecture, la recherche et l'étude autonome.",
+      'facilities.f4Title': 'Terrain de Sport', 'facilities.f4Desc': 'Espace extérieur pour l’éducation physique, le jeu et la vie collective.',
+      'facilities.f5Title': 'Atelier Manuel (Slöjd)', 'facilities.f5Desc': 'Un atelier dédié aux travaux manuels et techniques inspiré de la tradition suédoise.',
+      'facilities.f6Title': 'Espace Extérieur & Jardin', 'facilities.f6Desc': "Un jardin pédagogique pour les activités de plein air et l'éveil à la nature.",
+      'trust.eyebrow': 'Confiance & Transparence', 'trust.title': 'Un Engagement Clair envers les Familles',
+      'trust.acc1': 'Partenariat Institutionnel Guinée-Suède', 'trust.acc2': 'Programme Aligné sur le Curriculum National', 'trust.acc3': 'Engagement Qualité, Sécurité & Éthique',
+      'trust.leadershipTitle': 'Notre Équipe de Direction',
+      'trust.lead1Role': 'Direction Générale', 'trust.lead1Note': 'Nomination en cours',
+      'trust.lead2Role': 'Direction Pédagogique', 'trust.lead2Note': 'Nomination en cours',
+      'trust.lead3Role': 'Coordination du Partenariat Suédois', 'trust.lead3Note': 'Nomination en cours',
+      'trust.testimonialsTitle': 'Témoignages', 'trust.testimonialsNote': 'Les témoignages de nos premières familles et élèves seront publiés ici dès la rentrée.',
+      'trust.faqTitle': 'Questions Fréquentes',
+      'trust.faq1Q': "Quelle est la langue d'enseignement à l'EEG ?", 'trust.faq1A': "L'enseignement se fait en français, conformément au programme national, avec une initiation progressive à l'anglais et une ouverture aux méthodes suédoises.",
+      'trust.faq2Q': 'Quels niveaux scolaires sont proposés ?', 'trust.faq2A': "L'EEG accueille les élèves du préscolaire au primaire, avec une extension progressive vers le collège selon la demande.",
+      'trust.faq3Q': 'En quoi consiste le partenariat avec la Suède ?', 'trust.faq3A': 'Ce partenariat institutionnel permet d’intégrer des méthodes pédagogiques suédoises reconnues (autonomie, apprentissage par la pratique, plein air) au programme national guinéen.',
+      'trust.faq4Q': "Comment se déroule le processus d'inscription ?", 'trust.faq4A': "Remplissez le formulaire de contact, notre équipe vous recontacte pour un entretien, puis vous complétez le dossier d'inscription avec les documents requis.",
+      'trust.faq5Q': 'Y a-t-il un uniforme scolaire ?', 'trust.faq5A': "Oui, un uniforme est requis pour tous les élèves ; les détails sont communiqués lors de l'inscription.",
+      'location.eyebrow': 'Où nous trouver', 'location.title': 'Localisation & Contact',
+      'location.addressLabel': 'Adresse', 'location.phoneLabel': 'Téléphone', 'location.emailLabel': 'Email', 'location.webLabel': 'Site web',
+      'contact.formTitle': 'Contactez-nous', 'contact.formSubtitle': 'Demandez des informations sur les admissions, nos programmes, ou planifiez une visite du campus.',
+      'contact.nameLabel': 'Nom complet', 'contact.namePh': 'Votre nom et prénom', 'contact.phoneLabel': 'Téléphone', 'contact.emailLabel': 'Email', 'contact.reasonLabel': 'Objet',
+      'contact.reason1': "Demande d'inscription", 'contact.reason2': 'Information générale', 'contact.reason3': 'Visite du campus', 'contact.reason4': 'Partenariat / autre',
+      'contact.messageLabel': 'Message (optionnel)', 'contact.messagePh': 'Écrivez votre message ici...', 'contact.submit': 'Envoyer ma demande',
+      'contact.success': '✅ Merci ! Votre demande a bien été enregistrée. Nous vous contacterons très prochainement.',
+      'footer.about': 'École d’Éxcellence Espoir de Guinée — Un partenariat Guinée & Suède pour révéler le potentiel et former les leaders de demain.',
+      'footer.linksTitle': 'Liens Rapides', 'footer.contactTitle': 'Contact', 'footer.mapTitle': 'Carte',
+      'footer.legal': 'Mentions Légales', 'footer.privacy': 'Politique de Confidentialité',
+      'footer.copyright': '© <span id="year"></span> École d’Éxcellence Espoir de Guinée (EEG). Tous droits réservés.',
+      'toast.parents': 'Espace Parents — Portail bientôt disponible',
+      'toast.students': 'Espace Élèves — Portail bientôt disponible',
+    },
+    en: {
+      'nav.about': 'About', 'nav.pedagogy': 'Pedagogy', 'nav.admissions': 'Admissions',
+      'nav.calendar': 'Calendar', 'nav.campus': 'Campus', 'nav.faq': 'FAQ', 'nav.location': 'Location',
+      'nav.parents': 'Parent Portal', 'nav.students': 'Student Portal', 'nav.apply': 'Apply Now',
+      'hero.badge': 'Guinea — Sweden Partnership',
+      'hero.slogan': '"Unlocking potential. Shaping leaders."',
+      'hero.tagline': 'Together, let\'s build a future of excellence for our children and our nation.',
+      'hero.ctaPrimary': 'Book an Appointment', 'hero.ctaSecondary': 'Discover the School',
+      'about.eyebrow': 'Our Vision', 'about.title': "Shaping Tomorrow's Leaders",
+      'about.body': "EEG École d'Éxcellence Espoir de Guinée was founded with a clear ambition: to offer Guinean youth an internationally-recognized education, rooted in local values and open to the world. Born from a partnership between Guinea and Sweden, our institution is committed to unlocking every student's potential and shaping a new generation of responsible, creative, and competitive leaders.",
+      'about.card1Title': 'International Standards', 'about.card1Desc': 'A rigorous academic program inspired by best Swedish and Guinean educational practices.',
+      'about.card2Title': 'Excellence & Innovation', 'about.card2Desc': 'Modern teaching methods that cultivate critical thinking, creativity and self-confidence.',
+      'about.card3Title': 'Leadership & Values', 'about.card3Desc': 'Strong human guidance, dedicated to raising engaged citizens for the future of Guinea.',
+      'pedagogy.eyebrow': 'Our Approach', 'pedagogy.title': 'Our Pedagogy, Inspired by the Swedish Model',
+      'pedagogy.intro': "Through our partnership with Sweden, EEG blends the Guinean national curriculum with internationally-recognized methods: student autonomy, hands-on learning and respect for every child's pace, within an academically demanding framework.",
+      'pedagogy.p1Title': 'Autonomy & Self-Confidence', 'pedagogy.p1Desc': 'Students learn to organize themselves, take initiative, and own their choices from an early age.',
+      'pedagogy.p2Title': 'Hands-On Learning', 'pedagogy.p2Desc': 'Inspired by Swedish "slöjd", practical workshops build patience, precision and creativity.',
+      'pedagogy.p3Title': 'Outdoor Learning', 'pedagogy.p3Desc': 'Inspired by "friluftsliv", regular contact with nature strengthens health, observation and teamwork.',
+      'pedagogy.p4Title': 'Interdisciplinary Projects', 'pedagogy.p4Desc': 'Science, languages and the arts combine in concrete projects that give learning real meaning.',
+      'pedagogy.p5Title': 'Equality, Respect & Democracy', 'pedagogy.p5Desc': 'Every student is heard and valued, in a climate of mutual respect and peer dialogue.',
+      'pedagogy.p6Title': 'Rigorous Academic Excellence', 'pedagogy.p6Desc': 'High academic standards remain at the heart of the journey, aligned with the Guinean national program.',
+      'pedagogy.curriculumEyebrow': 'Our Curriculum', 'pedagogy.curriculumTitle': 'A National Curriculum, Enriched',
+      'pedagogy.curriculumBody': 'Every subject in the Guinean curriculum is taught using active Swedish methods: group problem-solving, concrete projects, and continuous tracking of each student\'s progress.',
+      'pedagogy.nationalLabel': 'Guinean National Curriculum', 'pedagogy.national1': 'French, mathematics, sciences', 'pedagogy.national2': 'History, geography, civic education', 'pedagogy.national3': 'Preparation for national exams',
+      'pedagogy.swedishLabel': 'Integrated Swedish Methods', 'pedagogy.swedish1': 'Small-group collaborative work', 'pedagogy.swedish2': 'Hands-on workshops and nature outings', 'pedagogy.swedish3': 'Individualized tracking for every student',
+      'admissions.eyebrow': 'Join Us', 'admissions.title': 'Admissions & Enrollment',
+      'admissions.intro': "A simple four-step process to join EEG's founding class.",
+      'admissions.s1Title': 'Admission Criteria', 'admissions.s1Desc': "Age matching the target grade, motivation of the child and family, admission interview.",
+      'admissions.s2Title': 'Required Documents', 'admissions.s2Desc': 'Birth certificate, previous report cards, ID photos, and a completed information form.',
+      'admissions.s3Title': 'Tuition Fees', 'admissions.s3Desc': 'Grade-based fee schedule and installment payment options, shared during the interview.',
+      'admissions.s4Title': 'Online Application', 'admissions.s4Desc': 'Fill out the contact form below; our admissions team will reach out within 48 hours.',
+      'admissions.cta': 'Start My Application',
+      'calendar.eyebrow': 'School Life', 'calendar.title': 'Academic Calendar & News',
+      'calendar.termsTitle': '2025 – 2026 Academic Year',
+      'calendar.term1': 'First Day of School', 'calendar.term2': 'Winter Break', 'calendar.term3': 'Spring Break', 'calendar.term4': 'End of School Year',
+      'calendar.newsTitle': 'News & Announcements',
+      'calendar.news1Title': '2025-2026 Enrollment Now Open', 'calendar.news1Desc': 'Applications are now open for all grades. Limited spots available.',
+      'calendar.news2Title': 'Open House Days', 'calendar.news2Desc': 'Visit the campus and meet our teaching team by appointment.',
+      'calendar.news3Title': 'Guinea-Sweden Partnership', 'calendar.news3Desc': 'Launch of the first pedagogical exchanges with our Swedish partners.',
+      'facilities.eyebrow': 'Our Campus', 'facilities.title': 'Our Facilities',
+      'facilities.intro': "A modern, secure environment designed for every student's intellectual and physical development.",
+      'facilities.f1Title': 'Modern Classrooms', 'facilities.f1Desc': 'Bright, airy spaces equipped for active learning in small groups.',
+      'facilities.f2Title': 'Computer Lab', 'facilities.f2Desc': 'Introduction to digital and office tools starting in primary school.',
+      'facilities.f3Title': 'Library', 'facilities.f3Desc': 'A quiet space dedicated to reading, research and independent study.',
+      'facilities.f4Title': 'Sports Field', 'facilities.f4Desc': 'Outdoor space for physical education, play and community life.',
+      'facilities.f5Title': 'Handicraft Workshop (Slöjd)', 'facilities.f5Desc': 'A workshop dedicated to manual and technical work, inspired by Swedish tradition.',
+      'facilities.f6Title': 'Outdoor Space & Garden', 'facilities.f6Desc': 'A teaching garden for outdoor activities and connecting with nature.',
+      'trust.eyebrow': 'Trust & Transparency', 'trust.title': 'A Clear Commitment to Families',
+      'trust.acc1': 'Guinea-Sweden Institutional Partnership', 'trust.acc2': 'Program Aligned with the National Curriculum', 'trust.acc3': 'Commitment to Quality, Safety & Ethics',
+      'trust.leadershipTitle': 'Our Leadership Team',
+      'trust.lead1Role': 'General Directorate', 'trust.lead1Note': 'Appointment in progress',
+      'trust.lead2Role': 'Academic Directorate', 'trust.lead2Note': 'Appointment in progress',
+      'trust.lead3Role': 'Swedish Partnership Coordination', 'trust.lead3Note': 'Appointment in progress',
+      'trust.testimonialsTitle': 'Testimonials', 'trust.testimonialsNote': "Testimonials from our first families and students will be published here from the start of the school year.",
+      'trust.faqTitle': 'Frequently Asked Questions',
+      'trust.faq1Q': 'What is the language of instruction at EEG?', 'trust.faq1A': 'Instruction is in French, in line with the national curriculum, with progressive introduction to English and Swedish-inspired methods.',
+      'trust.faq2Q': 'Which grade levels are offered?', 'trust.faq2A': 'EEG welcomes students from preschool through primary school, with progressive expansion to middle school based on demand.',
+      'trust.faq3Q': 'What does the partnership with Sweden involve?', 'trust.faq3A': 'This institutional partnership integrates recognized Swedish teaching methods (autonomy, hands-on learning, outdoor education) into the Guinean national curriculum.',
+      'trust.faq4Q': 'How does the enrollment process work?', 'trust.faq4A': 'Fill out the contact form, our team will reach out for an interview, then you complete the enrollment file with the required documents.',
+      'trust.faq5Q': 'Is there a school uniform?', 'trust.faq5A': 'Yes, a uniform is required for all students; details are shared during enrollment.',
+      'location.eyebrow': 'Find Us', 'location.title': 'Location & Contact',
+      'location.addressLabel': 'Address', 'location.phoneLabel': 'Phone', 'location.emailLabel': 'Email', 'location.webLabel': 'Website',
+      'contact.formTitle': 'Contact Us', 'contact.formSubtitle': 'Ask about admissions, our programs, or schedule a campus visit.',
+      'contact.nameLabel': 'Full Name', 'contact.namePh': 'Your first and last name', 'contact.phoneLabel': 'Phone', 'contact.emailLabel': 'Email', 'contact.reasonLabel': 'Subject',
+      'contact.reason1': 'Enrollment Request', 'contact.reason2': 'General Information', 'contact.reason3': 'Campus Visit', 'contact.reason4': 'Partnership / Other',
+      'contact.messageLabel': 'Message (optional)', 'contact.messagePh': 'Write your message here...', 'contact.submit': 'Send My Request',
+      'contact.success': '✅ Thank you! Your request has been recorded. We will contact you very soon.',
+      'footer.about': 'EEG École d\'Éxcellence Espoir de Guinée — A Guinea & Sweden partnership to unlock potential and shape tomorrow\'s leaders.',
+      'footer.linksTitle': 'Quick Links', 'footer.contactTitle': 'Contact', 'footer.mapTitle': 'Map',
+      'footer.legal': 'Legal Notice', 'footer.privacy': 'Privacy Policy',
+      'footer.copyright': '© <span id="year"></span> EEG École d\'Éxcellence Espoir de Guinée. All rights reserved.',
+      'toast.parents': 'Parent Portal — Coming soon',
+      'toast.students': 'Student Portal — Coming soon',
+    }
+  };
+
+  let currentLang = localStorage.getItem('eeg-lang') || 'fr';
+
+  function applyLang(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (i18n[lang] && i18n[lang][key] !== undefined) el.innerHTML = i18n[lang][key];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+      const key = el.getAttribute('data-i18n-ph');
+      if (i18n[lang] && i18n[lang][key] !== undefined) el.setAttribute('placeholder', i18n[lang][key]);
+    });
+    document.querySelectorAll('[data-lang-btn]').forEach(btn => {
+      btn.setAttribute('data-active', btn.getAttribute('data-lang-btn') === lang ? 'true' : 'false');
+    });
+    try { localStorage.setItem('eeg-lang', lang); } catch (e) {}
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  }
+
+  document.querySelectorAll('[data-lang-btn]').forEach(btn => {
+    btn.addEventListener('click', () => applyLang(btn.getAttribute('data-lang-btn')));
+  });
+
+  applyLang(currentLang);
+
+  // ---------- Portal placeholder toast ----------
+  const portalToast = document.getElementById('portal-toast');
+  let toastTimer;
+  document.querySelectorAll('.portal-link').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const kind = btn.getAttribute('data-portal');
+      const key = kind === 'parents' ? 'toast.parents' : 'toast.students';
+      portalToast.textContent = (i18n[currentLang] && i18n[currentLang][key]) || i18n.fr[key];
+      portalToast.classList.remove('opacity-0', 'translate-y-4');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => portalToast.classList.add('opacity-0', 'translate-y-4'), 3000);
+    });
+  });
+
   // ---------- Navbar scroll style ----------
   const navbar = document.getElementById('navbar');
   const navTitle = document.getElementById('nav-title');
