@@ -11,11 +11,11 @@
 const EEG_IMAGES = {
   logoNav: {
     src: 'images/logo/eeg-logo.jpg',
-    alt: { fr: 'Logo — École d\'Éxcellence Espoir de Guinée (EEG)', en: 'EEG École d\'Éxcellence Espoir de Guinée logo' },
+    alt: { fr: 'Logo — École d\'Excellence Espoir de Guinée (EEG)', en: 'EEG École d\'Excellence Espoir de Guinée logo' },
   },
   logoFooter: {
     src: 'images/logo/eeg-logo.jpg',
-    alt: { fr: 'Logo — École d\'Éxcellence Espoir de Guinée (EEG)', en: 'EEG École d\'Éxcellence Espoir de Guinée logo' },
+    alt: { fr: 'Logo — École d\'Excellence Espoir de Guinée (EEG)', en: 'EEG École d\'Excellence Espoir de Guinée logo' },
   },
   partnershipBadge: {
     src: 'images/logo/eeg-logo-with-flags.jpg',
