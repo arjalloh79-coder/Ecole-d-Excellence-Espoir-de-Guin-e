@@ -53,6 +53,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+<!-- Image asset manifest — single source of truth for image paths + alt text, see images/README.md -->
+<script src="assets/image-manifest.js"></script>
+
 <style>
   html { scroll-behavior: smooth; }
   body { font-family: 'Inter', sans-serif; }
@@ -76,6 +79,15 @@
       radial-gradient(circle at 15% 20%, rgba(212,175,55,0.15), transparent 40%),
       radial-gradient(circle at 85% 80%, rgba(212,175,55,0.12), transparent 45%),
       linear-gradient(160deg, #0A1B38 0%, #0F2C59 45%, #152F5C 100%);
+  }
+
+  /* Applied to #hero-gradient instead of .hero-bg once a real hero photo loads,
+     so the photo shows through with a legible navy tint rather than being fully covered. */
+  .hero-bg-overlay {
+    background:
+      radial-gradient(circle at 15% 20%, rgba(212,175,55,0.18), transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(212,175,55,0.15), transparent 45%),
+      linear-gradient(160deg, rgba(10,27,56,0.92) 0%, rgba(15,44,89,0.82) 45%, rgba(21,47,92,0.88) 100%);
   }
 
   .pattern-overlay {
@@ -126,21 +138,24 @@
 <header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
   <nav class="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-20 gap-4">
     <a href="#top" class="flex items-center gap-3 group shrink-0">
-      <svg id="nav-logo" viewBox="0 0 64 64" class="w-10 h-10 shrink-0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="flameGradientNav" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#F5D98A"/>
-            <stop offset="55%" stop-color="#D4AF37"/>
-            <stop offset="100%" stop-color="#B0902A"/>
-          </linearGradient>
-        </defs>
-        <circle cx="32" cy="32" r="30" fill="#0F2C59"/>
-        <circle cx="32" cy="32" r="30" fill="none" stroke="#D4AF37" stroke-width="1.5"/>
-        <path d="M14 42 C14 37 20 35 25 35 C28.5 35 31 36 32 37.5 L32 51 C31 49.5 28.5 48.5 25 48.5 C20 48.5 14 46 14 42 Z" fill="#FFFFFF"/>
-        <path d="M50 42 C50 37 44 35 39 35 C35.5 35 33 36 32 37.5 L32 51 C33 49.5 35.5 48.5 39 48.5 C44 48.5 50 46 50 42 Z" fill="#FFFFFF"/>
-        <path d="M32 10 C36 15 39 18.5 38 23 C37.3 26 34.8 27.5 32 27.5 C29.2 27.5 26.7 26 26 23 C25 18.5 28 15 32 10 Z" fill="url(#flameGradientNav)"/>
-        <circle cx="32" cy="31" r="1.8" fill="#D4AF37"/>
-      </svg>
+      <span id="nav-logo-svg-wrap" class="shrink-0">
+        <svg id="nav-logo" viewBox="0 0 64 64" class="w-10 h-10 shrink-0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="flameGradientNav" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#F5D98A"/>
+              <stop offset="55%" stop-color="#D4AF37"/>
+              <stop offset="100%" stop-color="#B0902A"/>
+            </linearGradient>
+          </defs>
+          <circle cx="32" cy="32" r="30" fill="#0F2C59"/>
+          <circle cx="32" cy="32" r="30" fill="none" stroke="#D4AF37" stroke-width="1.5"/>
+          <path d="M14 42 C14 37 20 35 25 35 C28.5 35 31 36 32 37.5 L32 51 C31 49.5 28.5 48.5 25 48.5 C20 48.5 14 46 14 42 Z" fill="#FFFFFF"/>
+          <path d="M50 42 C50 37 44 35 39 35 C35.5 35 33 36 32 37.5 L32 51 C33 49.5 35.5 48.5 39 48.5 C44 48.5 50 46 50 42 Z" fill="#FFFFFF"/>
+          <path d="M32 10 C36 15 39 18.5 38 23 C37.3 26 34.8 27.5 32 27.5 C29.2 27.5 26.7 26 26 23 C25 18.5 28 15 32 10 Z" fill="url(#flameGradientNav)"/>
+          <circle cx="32" cy="31" r="1.8" fill="#D4AF37"/>
+        </svg>
+      </span>
+      <img id="nav-logo-img" data-asset="logoNav" data-asset-fallback="#nav-logo-svg-wrap" class="hidden w-10 h-10 max-h-10 object-contain shrink-0" loading="eager" alt="" />
       <span class="leading-tight hidden sm:block">
         <span id="nav-title" class="block font-serif-display font-extrabold text-base sm:text-lg text-white transition-colors tracking-tight">EEG</span>
         <span id="nav-subtitle" class="block text-[9px] sm:text-[10px] tracking-widest uppercase text-gold-400 transition-colors whitespace-nowrap">École d'Éxcellence Espoir de Guinée</span>
@@ -200,12 +215,16 @@
 </header>
 
 <!-- ============ HERO ============ -->
-<section id="top" class="relative hero-bg overflow-hidden pt-32 pb-24 sm:pt-40 sm:pb-32">
-  <div class="absolute inset-0 pattern-overlay opacity-20"></div>
-  <div class="absolute -top-24 -right-24 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl"></div>
-  <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-navy-400/20 rounded-full blur-3xl"></div>
+<section id="top" class="relative overflow-hidden pt-32 pb-24 sm:pt-40 sm:pb-32">
+  <div class="absolute inset-0 z-0">
+    <img id="hero-bg-img" alt="" class="hidden w-full h-full object-cover" loading="eager" />
+    <div id="hero-gradient" class="absolute inset-0 hero-bg"></div>
+  </div>
+  <div class="absolute inset-0 pattern-overlay opacity-20 z-[1]"></div>
+  <div class="absolute -top-24 -right-24 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl z-[1]"></div>
+  <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-navy-400/20 rounded-full blur-3xl z-[1]"></div>
 
-  <div class="relative max-w-6xl mx-auto px-5 sm:px-8 text-center">
+  <div class="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 text-center">
 
     <!-- Partnership badge -->
     <div class="fade-up inline-flex items-center gap-3 bg-white/5 border border-white/15 rounded-full px-5 py-2 mb-8">
@@ -285,6 +304,50 @@
         <div class="w-14 h-14 mx-auto mb-5 rounded-2xl bg-navy-800 flex items-center justify-center text-2xl">🤝</div>
         <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="about.card3Title">Leadership & Valeurs</h3>
         <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="about.card3Desc">Un accompagnement humain fort, au service de la formation de citoyens engagés pour l'avenir de la Guinée.</p>
+      </div>
+    </div>
+
+    <!-- Founders' Message -->
+    <div class="fade-up mt-12 bg-navy-900 rounded-3xl p-8 sm:p-10 relative overflow-hidden">
+      <div class="absolute inset-0 pattern-overlay opacity-10"></div>
+      <div class="relative flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
+        <div class="w-16 h-16 rounded-2xl bg-gold-500 flex items-center justify-center text-3xl shrink-0">🎥</div>
+        <div class="flex-1 text-center sm:text-left">
+          <p class="text-gold-400 text-xs font-bold tracking-[0.3em] uppercase mb-2" data-i18n="founders.eyebrow">Mot des Fondateurs</p>
+          <p class="text-white/80 text-sm sm:text-base leading-relaxed" data-i18n="founders.body">Découvrez le message de nos fondateurs sur la vision et l'ambition de l'EEG pour la jeunesse guinéenne.</p>
+        </div>
+        <a id="founders-video-link" href="#" target="_blank" rel="noopener noreferrer"
+          class="shrink-0 inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold text-sm px-6 py-3.5 rounded-full shadow-lg shadow-gold-500/20 transition-all hover:scale-105 whitespace-nowrap" data-i18n="founders.cta">
+          ▶ Regarder le Message des Fondateurs
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CYCLES D'ENSEIGNEMENT ============ -->
+<section id="cycles" class="py-16 sm:py-20 bg-navy-50/60 relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <img data-asset="programsLevels" data-asset-fallback="" class="hidden w-full h-56 sm:h-72 object-cover rounded-3xl mb-10 shadow-lg" loading="lazy" alt="" />
+    <div class="text-center max-w-2xl mx-auto mb-10 fade-up">
+      <p class="text-gold-600 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-3" data-i18n="cycles.eyebrow">Nos Cycles</p>
+      <h2 class="font-serif-display text-2xl sm:text-4xl font-bold text-navy-900" data-i18n="cycles.title">Crèche, Maternelle & Primaire</h2>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-6">
+      <div class="fade-up card-hover bg-white border border-navy-100 rounded-2xl p-6 text-center shadow-sm">
+        <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-navy-800 flex items-center justify-center text-xl">👶</div>
+        <h3 class="font-serif-display font-bold text-navy-900" data-i18n="cycles.c1Title">Crèche</h3>
+        <p class="text-navy-700/70 text-sm mt-1" data-i18n="cycles.c1Desc">Un encadrement sécurisé et stimulant pour les tout-petits.</p>
+      </div>
+      <div class="fade-up card-hover bg-white border border-navy-100 rounded-2xl p-6 text-center shadow-sm">
+        <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-gold-500 flex items-center justify-center text-xl">🧒</div>
+        <h3 class="font-serif-display font-bold text-navy-900" data-i18n="cycles.c2Title">Maternelle</h3>
+        <p class="text-navy-700/70 text-sm mt-1" data-i18n="cycles.c2Desc">Éveil, jeu et premiers apprentissages en toute confiance.</p>
+      </div>
+      <div class="fade-up card-hover bg-white border border-navy-100 rounded-2xl p-6 text-center shadow-sm">
+        <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-navy-800 flex items-center justify-center text-xl">🎓</div>
+        <h3 class="font-serif-display font-bold text-navy-900" data-i18n="cycles.c3Title">Primaire</h3>
+        <p class="text-navy-700/70 text-sm mt-1" data-i18n="cycles.c3Desc">Des élèves en confiance dans une école de confiance.</p>
       </div>
     </div>
   </div>
@@ -372,6 +435,7 @@
 <!-- ============ ADMISSIONS ============ -->
 <section id="admissions" class="py-24 sm:py-32 bg-white relative overflow-hidden">
   <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <img data-asset="admissionsBanner" data-asset-fallback="" id="admissions-banner-img" class="hidden w-full max-w-3xl mx-auto rounded-3xl shadow-lg mb-10" loading="lazy" alt="" />
     <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
       <p class="text-gold-600 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-3" data-i18n="admissions.eyebrow">Rejoignez-nous</p>
       <h2 class="font-serif-display text-3xl sm:text-5xl font-bold text-navy-900 mb-6" data-i18n="admissions.title">Admissions & Inscription</h2>
@@ -405,9 +469,13 @@
       </div>
     </div>
 
-    <div class="fade-up text-center mt-12">
+    <div class="fade-up text-center mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
       <a href="#contact" class="inline-flex items-center gap-2 bg-navy-900 hover:bg-navy-800 text-white font-bold px-8 py-4 rounded-full shadow-lg transition-all hover:scale-105" data-i18n="admissions.cta">
         Commencer ma Candidature
+      </a>
+      <a id="admissions-flyer-link" href="images/admissions/admissions-2025-2026.jpg" download
+        class="hidden items-center gap-2 border border-navy-200 hover:border-gold-500 text-navy-900 font-semibold px-8 py-4 rounded-full transition-all" data-i18n="admissions.flyerCta">
+        Télécharger l'Affiche
       </a>
     </div>
   </div>
@@ -447,21 +515,30 @@
       <div class="fade-up space-y-5">
         <h3 class="font-serif-display text-xl font-bold text-navy-900 mb-1" data-i18n="calendar.newsTitle">Actualités & Annonces</h3>
         <div class="card-hover bg-white rounded-2xl border border-navy-100 shadow-sm p-5 flex gap-4">
-          <div class="w-11 h-11 rounded-xl bg-navy-800 flex items-center justify-center text-lg shrink-0">📢</div>
+          <div class="relative w-11 h-11 shrink-0">
+            <img data-asset="news1" data-asset-fallback="#news-icon-1" class="hidden w-11 h-11 rounded-xl object-cover" loading="lazy" alt="" />
+            <div id="news-icon-1" class="w-11 h-11 rounded-xl bg-navy-800 flex items-center justify-center text-lg">📢</div>
+          </div>
           <div>
             <p class="font-semibold text-navy-900 text-sm" data-i18n="calendar.news1Title">Ouverture des Inscriptions 2025-2026</p>
             <p class="text-navy-700/70 text-sm" data-i18n="calendar.news1Desc">Les candidatures sont désormais ouvertes pour toutes les classes. Places limitées.</p>
           </div>
         </div>
         <div class="card-hover bg-white rounded-2xl border border-navy-100 shadow-sm p-5 flex gap-4">
-          <div class="w-11 h-11 rounded-xl bg-gold-500 flex items-center justify-center text-lg shrink-0">🏫</div>
+          <div class="relative w-11 h-11 shrink-0">
+            <img data-asset="news2" data-asset-fallback="#news-icon-2" class="hidden w-11 h-11 rounded-xl object-cover" loading="lazy" alt="" />
+            <div id="news-icon-2" class="w-11 h-11 rounded-xl bg-gold-500 flex items-center justify-center text-lg">🏫</div>
+          </div>
           <div>
             <p class="font-semibold text-navy-900 text-sm" data-i18n="calendar.news2Title">Journées Portes Ouvertes</p>
             <p class="text-navy-700/70 text-sm" data-i18n="calendar.news2Desc">Venez visiter le campus et rencontrer notre équipe pédagogique sur rendez-vous.</p>
           </div>
         </div>
         <div class="card-hover bg-white rounded-2xl border border-navy-100 shadow-sm p-5 flex gap-4">
-          <div class="w-11 h-11 rounded-xl bg-navy-800 flex items-center justify-center text-lg shrink-0">🇸🇪</div>
+          <div class="relative w-11 h-11 shrink-0">
+            <img data-asset="news3" data-asset-fallback="#news-icon-3" class="hidden w-11 h-11 rounded-xl object-cover" loading="lazy" alt="" />
+            <div id="news-icon-3" class="w-11 h-11 rounded-xl bg-navy-800 flex items-center justify-center text-lg">🇸🇪</div>
+          </div>
           <div>
             <p class="font-semibold text-navy-900 text-sm" data-i18n="calendar.news3Title">Partenariat Guinée-Suède</p>
             <p class="text-navy-700/70 text-sm" data-i18n="calendar.news3Desc">Lancement des premiers échanges pédagogiques avec nos partenaires suédois.</p>
@@ -482,35 +559,53 @@
     </div>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-7 text-center">
-        <div class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-navy-800 flex items-center justify-center text-2xl">🏫</div>
-        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="facilities.f1Title">Salles de Classe Modernes</h3>
-        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="facilities.f1Desc">Espaces lumineux et aérés, équipés pour l'apprentissage actif en petits effectifs.</p>
+      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl overflow-hidden text-center">
+        <img data-asset="facilityClassroom" data-asset-fallback="#facility-icon-1" class="hidden w-full h-40 object-cover" loading="lazy" alt="" />
+        <div class="p-7">
+          <div id="facility-icon-1" class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-navy-800 flex items-center justify-center text-2xl">🏫</div>
+          <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="facilities.f1Title">Salles de Classe Modernes</h3>
+          <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="facilities.f1Desc">Espaces lumineux et aérés, équipés pour l'apprentissage actif en petits effectifs.</p>
+        </div>
       </div>
-      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-7 text-center">
-        <div class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-gold-500 flex items-center justify-center text-2xl">💻</div>
-        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="facilities.f2Title">Laboratoire Informatique</h3>
-        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="facilities.f2Desc">Initiation au numérique et aux outils bureautiques dès le primaire.</p>
+      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl overflow-hidden text-center">
+        <img data-asset="facilityComputerLab" data-asset-fallback="#facility-icon-2" class="hidden w-full h-40 object-cover" loading="lazy" alt="" />
+        <div class="p-7">
+          <div id="facility-icon-2" class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-gold-500 flex items-center justify-center text-2xl">💻</div>
+          <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="facilities.f2Title">Laboratoire Informatique</h3>
+          <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="facilities.f2Desc">Initiation au numérique et aux outils bureautiques dès le primaire.</p>
+        </div>
       </div>
-      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-7 text-center">
-        <div class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-navy-800 flex items-center justify-center text-2xl">📚</div>
-        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="facilities.f3Title">Bibliothèque</h3>
-        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="facilities.f3Desc">Un espace calme dédié à la lecture, la recherche et l'étude autonome.</p>
+      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl overflow-hidden text-center">
+        <img data-asset="facilityLibrary" data-asset-fallback="#facility-icon-3" class="hidden w-full h-40 object-cover" loading="lazy" alt="" />
+        <div class="p-7">
+          <div id="facility-icon-3" class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-navy-800 flex items-center justify-center text-2xl">📚</div>
+          <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="facilities.f3Title">Bibliothèque</h3>
+          <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="facilities.f3Desc">Un espace calme dédié à la lecture, la recherche et l'étude autonome.</p>
+        </div>
       </div>
-      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-7 text-center">
-        <div class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-gold-500 flex items-center justify-center text-2xl">⚽</div>
-        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="facilities.f4Title">Terrain de Sport</h3>
-        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="facilities.f4Desc">Espace extérieur pour l'éducation physique, le jeu et la vie collective.</p>
+      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl overflow-hidden text-center">
+        <img data-asset="facilitySports" data-asset-fallback="#facility-icon-4" class="hidden w-full h-40 object-cover" loading="lazy" alt="" />
+        <div class="p-7">
+          <div id="facility-icon-4" class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-gold-500 flex items-center justify-center text-2xl">⚽</div>
+          <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="facilities.f4Title">Terrain de Sport</h3>
+          <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="facilities.f4Desc">Espace extérieur pour l'éducation physique, le jeu et la vie collective.</p>
+        </div>
       </div>
-      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-7 text-center">
-        <div class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-navy-800 flex items-center justify-center text-2xl">🪚</div>
-        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="facilities.f5Title">Atelier Manuel (Slöjd)</h3>
-        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="facilities.f5Desc">Un atelier dédié aux travaux manuels et techniques inspiré de la tradition suédoise.</p>
+      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl overflow-hidden text-center">
+        <img data-asset="facilitySlojd" data-asset-fallback="#facility-icon-5" class="hidden w-full h-40 object-cover" loading="lazy" alt="" />
+        <div class="p-7">
+          <div id="facility-icon-5" class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-navy-800 flex items-center justify-center text-2xl">🪚</div>
+          <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="facilities.f5Title">Atelier Manuel (Slöjd)</h3>
+          <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="facilities.f5Desc">Un atelier dédié aux travaux manuels et techniques inspiré de la tradition suédoise.</p>
+        </div>
       </div>
-      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl p-7 text-center">
-        <div class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-gold-500 flex items-center justify-center text-2xl">🌳</div>
-        <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="facilities.f6Title">Espace Extérieur & Jardin</h3>
-        <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="facilities.f6Desc">Un jardin pédagogique pour les activités de plein air et l'éveil à la nature.</p>
+      <div class="fade-up card-hover bg-navy-50/60 border border-navy-100 rounded-3xl overflow-hidden text-center">
+        <img data-asset="facilityGarden" data-asset-fallback="#facility-icon-6" class="hidden w-full h-40 object-cover" loading="lazy" alt="" />
+        <div class="p-7">
+          <div id="facility-icon-6" class="facility-icon w-14 h-14 mx-auto mb-5 rounded-2xl bg-gold-500 flex items-center justify-center text-2xl">🌳</div>
+          <h3 class="font-serif-display font-bold text-lg text-navy-900 mb-2" data-i18n="facilities.f6Title">Espace Extérieur & Jardin</h3>
+          <p class="text-navy-700/70 text-sm leading-relaxed" data-i18n="facilities.f6Desc">Un jardin pédagogique pour les activités de plein air et l'éveil à la nature.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -545,17 +640,26 @@
       <h3 class="fade-up font-serif-display text-2xl font-bold text-navy-900 text-center mb-8" data-i18n="trust.leadershipTitle">Notre Équipe de Direction</h3>
       <div class="grid sm:grid-cols-3 gap-6">
         <div class="fade-up card-hover bg-white rounded-2xl border border-navy-100 shadow-sm p-6 text-center">
-          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-navy-800 flex items-center justify-center text-2xl">🧑‍💼</div>
+          <div class="relative w-16 h-16 mx-auto mb-4">
+            <img data-asset="lead1" data-asset-fallback="#lead-icon-1" class="hidden w-16 h-16 rounded-full object-cover" loading="lazy" alt="" />
+            <div id="lead-icon-1" class="w-16 h-16 rounded-full bg-navy-800 flex items-center justify-center text-2xl">🧑‍💼</div>
+          </div>
           <p class="font-serif-display font-bold text-navy-900" data-i18n="trust.lead1Role">Direction Générale</p>
           <p class="text-navy-700/60 text-xs mt-1" data-i18n="trust.lead1Note">Nomination en cours</p>
         </div>
         <div class="fade-up card-hover bg-white rounded-2xl border border-navy-100 shadow-sm p-6 text-center">
-          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gold-500 flex items-center justify-center text-2xl">👩‍🏫</div>
+          <div class="relative w-16 h-16 mx-auto mb-4">
+            <img data-asset="lead2" data-asset-fallback="#lead-icon-2" class="hidden w-16 h-16 rounded-full object-cover" loading="lazy" alt="" />
+            <div id="lead-icon-2" class="w-16 h-16 rounded-full bg-gold-500 flex items-center justify-center text-2xl">👩‍🏫</div>
+          </div>
           <p class="font-serif-display font-bold text-navy-900" data-i18n="trust.lead2Role">Direction Pédagogique</p>
           <p class="text-navy-700/60 text-xs mt-1" data-i18n="trust.lead2Note">Nomination en cours</p>
         </div>
         <div class="fade-up card-hover bg-white rounded-2xl border border-navy-100 shadow-sm p-6 text-center">
-          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-navy-800 flex items-center justify-center text-2xl">🤝</div>
+          <div class="relative w-16 h-16 mx-auto mb-4">
+            <img data-asset="lead3" data-asset-fallback="#lead-icon-3" class="hidden w-16 h-16 rounded-full object-cover" loading="lazy" alt="" />
+            <div id="lead-icon-3" class="w-16 h-16 rounded-full bg-navy-800 flex items-center justify-center text-2xl">🤝</div>
+          </div>
           <p class="font-serif-display font-bold text-navy-900" data-i18n="trust.lead3Role">Coordination du Partenariat Suédois</p>
           <p class="text-navy-700/60 text-xs mt-1" data-i18n="trust.lead3Note">Nomination en cours</p>
         </div>
@@ -712,21 +816,24 @@
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-10 border-b border-white/10">
       <div class="lg:col-span-1">
         <div class="flex items-center gap-3 mb-4">
-          <svg viewBox="0 0 64 64" class="w-9 h-9 shrink-0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-              <linearGradient id="flameGradientFooter" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#F5D98A"/>
-                <stop offset="55%" stop-color="#D4AF37"/>
-                <stop offset="100%" stop-color="#B0902A"/>
-              </linearGradient>
-            </defs>
-            <circle cx="32" cy="32" r="30" fill="#0A1B38"/>
-            <circle cx="32" cy="32" r="30" fill="none" stroke="#D4AF37" stroke-width="1.5"/>
-            <path d="M14 42 C14 37 20 35 25 35 C28.5 35 31 36 32 37.5 L32 51 C31 49.5 28.5 48.5 25 48.5 C20 48.5 14 46 14 42 Z" fill="#FFFFFF"/>
-            <path d="M50 42 C50 37 44 35 39 35 C35.5 35 33 36 32 37.5 L32 51 C33 49.5 35.5 48.5 39 48.5 C44 48.5 50 46 50 42 Z" fill="#FFFFFF"/>
-            <path d="M32 10 C36 15 39 18.5 38 23 C37.3 26 34.8 27.5 32 27.5 C29.2 27.5 26.7 26 26 23 C25 18.5 28 15 32 10 Z" fill="url(#flameGradientFooter)"/>
-            <circle cx="32" cy="31" r="1.8" fill="#D4AF37"/>
-          </svg>
+          <span id="footer-logo-svg-wrap" class="shrink-0">
+            <svg viewBox="0 0 64 64" class="w-9 h-9 shrink-0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="flameGradientFooter" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#F5D98A"/>
+                  <stop offset="55%" stop-color="#D4AF37"/>
+                  <stop offset="100%" stop-color="#B0902A"/>
+                </linearGradient>
+              </defs>
+              <circle cx="32" cy="32" r="30" fill="#0A1B38"/>
+              <circle cx="32" cy="32" r="30" fill="none" stroke="#D4AF37" stroke-width="1.5"/>
+              <path d="M14 42 C14 37 20 35 25 35 C28.5 35 31 36 32 37.5 L32 51 C31 49.5 28.5 48.5 25 48.5 C20 48.5 14 46 14 42 Z" fill="#FFFFFF"/>
+              <path d="M50 42 C50 37 44 35 39 35 C35.5 35 33 36 32 37.5 L32 51 C33 49.5 35.5 48.5 39 48.5 C44 48.5 50 46 50 42 Z" fill="#FFFFFF"/>
+              <path d="M32 10 C36 15 39 18.5 38 23 C37.3 26 34.8 27.5 32 27.5 C29.2 27.5 26.7 26 26 23 C25 18.5 28 15 32 10 Z" fill="url(#flameGradientFooter)"/>
+              <circle cx="32" cy="31" r="1.8" fill="#D4AF37"/>
+            </svg>
+          </span>
+          <img id="footer-logo-img" data-asset="logoFooter" data-asset-fallback="#footer-logo-svg-wrap" class="hidden w-9 h-9 max-h-9 object-contain shrink-0" loading="lazy" alt="" />
           <span class="font-serif-display font-bold text-lg">EEG</span>
         </div>
         <p class="text-white/60 text-sm leading-relaxed mb-4" data-i18n="footer.about">
@@ -872,6 +979,14 @@
       'footer.copyright': '© <span id="year"></span> École d’Éxcellence Espoir de Guinée (EEG). Tous droits réservés.',
       'toast.parents': 'Espace Parents — Portail bientôt disponible',
       'toast.students': 'Espace Élèves — Portail bientôt disponible',
+      'founders.eyebrow': 'Mot des Fondateurs',
+      'founders.body': "Découvrez le message de nos fondateurs sur la vision et l'ambition de l'EEG pour la jeunesse guinéenne.",
+      'founders.cta': '▶ Regarder le Message des Fondateurs',
+      'cycles.eyebrow': 'Nos Cycles', 'cycles.title': 'Crèche, Maternelle & Primaire',
+      'cycles.c1Title': 'Crèche', 'cycles.c1Desc': 'Un encadrement sécurisé et stimulant pour les tout-petits.',
+      'cycles.c2Title': 'Maternelle', 'cycles.c2Desc': 'Éveil, jeu et premiers apprentissages en toute confiance.',
+      'cycles.c3Title': 'Primaire', 'cycles.c3Desc': 'Des élèves en confiance dans une école de confiance.',
+      'admissions.flyerCta': "Télécharger l'Affiche",
     },
     en: {
       'nav.about': 'About', 'nav.pedagogy': 'Pedagogy', 'nav.admissions': 'Admissions',
@@ -946,6 +1061,14 @@
       'footer.copyright': '© <span id="year"></span> EEG École d\'Éxcellence Espoir de Guinée. All rights reserved.',
       'toast.parents': 'Parent Portal — Coming soon',
       'toast.students': 'Student Portal — Coming soon',
+      'founders.eyebrow': "Founders' Message",
+      'founders.body': "Discover our founders' message about EEG's vision and ambition for Guinean youth.",
+      'founders.cta': "▶ Watch the Founders' Message",
+      'cycles.eyebrow': 'Our Programs', 'cycles.title': 'Nursery, Kindergarten & Primary',
+      'cycles.c1Title': 'Nursery', 'cycles.c1Desc': 'Secure, stimulating care for our youngest learners.',
+      'cycles.c2Title': 'Kindergarten', 'cycles.c2Desc': 'Discovery, play and first learning steps, in confidence.',
+      'cycles.c3Title': 'Primary', 'cycles.c3Desc': 'Confident students in a school built on trust.',
+      'admissions.flyerCta': 'Download the Flyer',
     }
   };
 
@@ -971,10 +1094,42 @@
   }
 
   document.querySelectorAll('[data-lang-btn]').forEach(btn => {
-    btn.addEventListener('click', () => applyLang(btn.getAttribute('data-lang-btn')));
+    btn.addEventListener('click', () => {
+      applyLang(btn.getAttribute('data-lang-btn'));
+      mountAllDataAssetImages(btn.getAttribute('data-lang-btn'));
+    });
   });
 
   applyLang(currentLang);
+
+  // ---------- Image assets (logo, hero, cycles, admissions, facilities, news, leadership) ----------
+  mountAllDataAssetImages(currentLang);
+
+  // Hero background photo: only swaps in the navy gradient's opaque class for a
+  // translucent overlay once the real photo has actually loaded (see images/README.md).
+  const heroImg = document.getElementById('hero-bg-img');
+  const heroGradient = document.getElementById('hero-gradient');
+  mountImage('heroSchool', (src, alt) => {
+    heroImg.src = src;
+    heroImg.alt = alt;
+    heroImg.classList.remove('hidden');
+    heroGradient.classList.remove('hero-bg');
+    heroGradient.classList.add('hero-bg-overlay');
+  });
+
+  // Admissions flyer download link: only revealed once the poster image exists.
+  const admissionsFlyerLink = document.getElementById('admissions-flyer-link');
+  mountImage('admissionsBanner', (src) => {
+    admissionsFlyerLink.href = src;
+    admissionsFlyerLink.classList.remove('hidden');
+    admissionsFlyerLink.style.display = 'inline-flex';
+  });
+
+  // Founders' message video link (centralized in assets/image-manifest.js -> EEG_MEDIA)
+  const foundersLink = document.getElementById('founders-video-link');
+  if (foundersLink && typeof EEG_MEDIA !== 'undefined') {
+    foundersLink.href = EEG_MEDIA.foundersMessageVideo.src;
+  }
 
   // ---------- Portal placeholder toast ----------
   const portalToast = document.getElementById('portal-toast');
