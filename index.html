@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>École d'Excellence Espoir de Guinée (E.E.G)</title>
-<meta name="description" content="École d'Excellence Espoir de Guinée (E.E.G) — Révéler le potentiel. Former les leaders. Cérémonie d'ouverture officielle le 05 Septembre 2025 à Lambanyi, Conakry." />
+<title>EEG — École d'Éxcellence Espoir de Guinée</title>
+<meta name="description" content="EEG École d'Éxcellence Espoir de Guinée — Révéler le potentiel. Former les leaders. Un établissement d'excellence fruit d'un partenariat Guinée-Suède, à Lambanyi, Conakry." />
 
 <!-- Tailwind CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -96,16 +96,6 @@
     transform: translateY(0);
   }
 
-  .countdown-box {
-    backdrop-filter: blur(6px);
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(212,175,55,0.35);
-  }
-
-  .timeline-line {
-    background: linear-gradient(180deg, #D4AF37, rgba(212,175,55,0.15));
-  }
-
   input:focus, textarea:focus { outline: none; }
 
   ::selection { background: #D4AF37; color: #0F2C59; }
@@ -117,18 +107,30 @@
 <!-- ============ NAVBAR ============ -->
 <header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
   <nav class="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-20">
-    <a href="#top" class="flex items-center gap-3 group">
-      <span class="text-2xl">🎓</span>
+    <a href="#top" class="flex items-center gap-3 group shrink-0">
+      <svg id="nav-logo" viewBox="0 0 64 64" class="w-10 h-10 shrink-0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="flameGradientNav" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#F5D98A"/>
+            <stop offset="55%" stop-color="#D4AF37"/>
+            <stop offset="100%" stop-color="#B0902A"/>
+          </linearGradient>
+        </defs>
+        <circle cx="32" cy="32" r="30" fill="#0F2C59"/>
+        <circle cx="32" cy="32" r="30" fill="none" stroke="#D4AF37" stroke-width="1.5"/>
+        <path d="M14 42 C14 37 20 35 25 35 C28.5 35 31 36 32 37.5 L32 51 C31 49.5 28.5 48.5 25 48.5 C20 48.5 14 46 14 42 Z" fill="#FFFFFF"/>
+        <path d="M50 42 C50 37 44 35 39 35 C35.5 35 33 36 32 37.5 L32 51 C33 49.5 35.5 48.5 39 48.5 C44 48.5 50 46 50 42 Z" fill="#FFFFFF"/>
+        <path d="M32 10 C36 15 39 18.5 38 23 C37.3 26 34.8 27.5 32 27.5 C29.2 27.5 26.7 26 26 23 C25 18.5 28 15 32 10 Z" fill="url(#flameGradientNav)"/>
+        <circle cx="32" cy="31" r="1.8" fill="#D4AF37"/>
+      </svg>
       <span class="leading-tight">
-        <span id="nav-title" class="block font-serif-display font-bold text-lg text-white transition-colors">É.E.G</span>
-        <span id="nav-subtitle" class="block text-[10px] tracking-widest uppercase text-gold-400 transition-colors">Espoir de Guinée</span>
+        <span id="nav-title" class="block font-serif-display font-extrabold text-base sm:text-lg text-white transition-colors tracking-tight">EEG</span>
+        <span id="nav-subtitle" class="block text-[9px] sm:text-[10px] tracking-widest uppercase text-gold-400 transition-colors whitespace-nowrap">École d'Éxcellence Espoir de Guinée</span>
       </span>
     </a>
 
     <div class="hidden lg:flex items-center gap-9">
       <a href="#about" class="nav-link text-sm font-medium text-white/90 hover:text-gold-400 transition-colors">À Propos</a>
-      <a href="#leadership" class="nav-link text-sm font-medium text-white/90 hover:text-gold-400 transition-colors">Direction</a>
-      <a href="#program" class="nav-link text-sm font-medium text-white/90 hover:text-gold-400 transition-colors">Programme</a>
       <a href="#location" class="nav-link text-sm font-medium text-white/90 hover:text-gold-400 transition-colors">Localisation</a>
       <a href="#contact" class="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold text-sm px-6 py-3 rounded-full shadow-lg shadow-gold-500/20 transition-all hover:shadow-gold-500/40 hover:scale-[1.03]">
         Postuler
@@ -145,8 +147,6 @@
   <div id="mobile-menu" class="hidden lg:hidden bg-navy-900/98 backdrop-blur border-t border-white/10">
     <div class="px-6 py-6 flex flex-col gap-5">
       <a href="#about" class="mobile-link text-white/90 font-medium">À Propos</a>
-      <a href="#leadership" class="mobile-link text-white/90 font-medium">Direction</a>
-      <a href="#program" class="mobile-link text-white/90 font-medium">Programme</a>
       <a href="#location" class="mobile-link text-white/90 font-medium">Localisation</a>
       <a href="#contact" class="mobile-link inline-flex justify-center items-center bg-gold-500 text-navy-900 font-bold px-6 py-3 rounded-full">Postuler</a>
     </div>
@@ -168,12 +168,24 @@
       <span class="text-lg leading-none">🇬🇳</span>
     </div>
 
-    <div class="fade-up text-5xl sm:text-6xl mb-6">🎓</div>
-
-    <p class="fade-up text-gold-400 text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase mb-4">Cérémonie d'Ouverture Officielle</p>
+    <svg viewBox="0 0 64 64" class="fade-up w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="flameGradientHero" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#F5D98A"/>
+          <stop offset="55%" stop-color="#D4AF37"/>
+          <stop offset="100%" stop-color="#B0902A"/>
+        </linearGradient>
+      </defs>
+      <circle cx="32" cy="32" r="30" fill="#0F2C59"/>
+      <circle cx="32" cy="32" r="30" fill="none" stroke="#D4AF37" stroke-width="1.5"/>
+      <path d="M14 42 C14 37 20 35 25 35 C28.5 35 31 36 32 37.5 L32 51 C31 49.5 28.5 48.5 25 48.5 C20 48.5 14 46 14 42 Z" fill="#FFFFFF"/>
+      <path d="M50 42 C50 37 44 35 39 35 C35.5 35 33 36 32 37.5 L32 51 C33 49.5 35.5 48.5 39 48.5 C44 48.5 50 46 50 42 Z" fill="#FFFFFF"/>
+      <path d="M32 10 C36 15 39 18.5 38 23 C37.3 26 34.8 27.5 32 27.5 C29.2 27.5 26.7 26 26 23 C25 18.5 28 15 32 10 Z" fill="url(#flameGradientHero)"/>
+      <circle cx="32" cy="31" r="1.8" fill="#D4AF37"/>
+    </svg>
 
     <h1 class="fade-up font-serif-display text-4xl sm:text-6xl md:text-7xl font-extrabold text-white leading-[1.1] mb-6">
-      École d'Excellence <br class="hidden sm:block" />
+      EEG École d'Éxcellence <br class="hidden sm:block" />
       <span class="text-gold-400">Espoir de Guinée</span>
     </h1>
 
@@ -185,37 +197,13 @@
       Ensemble, bâtissons un avenir d'excellence pour nos enfants et notre nation.
     </p>
 
-    <div class="fade-up flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+    <div class="fade-up flex flex-col sm:flex-row items-center justify-center gap-4">
       <a href="#contact" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold px-8 py-4 rounded-full shadow-xl shadow-gold-500/25 transition-all hover:scale-105">
         Prendre Rendez-vous
       </a>
-      <a href="#program" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 border border-white/30 hover:border-gold-400 hover:text-gold-400 text-white font-semibold px-8 py-4 rounded-full transition-all">
-        Voir le Programme
+      <a href="#about" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 border border-white/30 hover:border-gold-400 hover:text-gold-400 text-white font-semibold px-8 py-4 rounded-full transition-all">
+        Découvrir l'École
       </a>
-    </div>
-
-    <!-- Countdown -->
-    <div class="fade-up max-w-3xl mx-auto">
-      <p class="text-white/60 text-xs sm:text-sm uppercase tracking-widest mb-4">Compte à rebours — 05 Septembre 2025, 10h00 GMT</p>
-      <div id="countdown" class="grid grid-cols-4 gap-3 sm:gap-5">
-        <div class="countdown-box rounded-2xl py-4 sm:py-6">
-          <div id="cd-days" class="font-serif-display text-3xl sm:text-5xl font-bold text-gold-400">00</div>
-          <div class="text-[10px] sm:text-xs text-white/60 uppercase tracking-widest mt-1">Jours</div>
-        </div>
-        <div class="countdown-box rounded-2xl py-4 sm:py-6">
-          <div id="cd-hours" class="font-serif-display text-3xl sm:text-5xl font-bold text-gold-400">00</div>
-          <div class="text-[10px] sm:text-xs text-white/60 uppercase tracking-widest mt-1">Heures</div>
-        </div>
-        <div class="countdown-box rounded-2xl py-4 sm:py-6">
-          <div id="cd-minutes" class="font-serif-display text-3xl sm:text-5xl font-bold text-gold-400">00</div>
-          <div class="text-[10px] sm:text-xs text-white/60 uppercase tracking-widest mt-1">Minutes</div>
-        </div>
-        <div class="countdown-box rounded-2xl py-4 sm:py-6">
-          <div id="cd-seconds" class="font-serif-display text-3xl sm:text-5xl font-bold text-gold-400">00</div>
-          <div class="text-[10px] sm:text-xs text-white/60 uppercase tracking-widest mt-1">Secondes</div>
-        </div>
-      </div>
-      <p id="countdown-status" class="text-gold-400 text-sm font-semibold mt-5 hidden">🎉 L'événement a commencé — Bienvenue !</p>
     </div>
   </div>
 </section>
@@ -229,7 +217,7 @@
         Former les leaders de demain
       </h2>
       <p class="text-navy-700/80 text-base sm:text-lg leading-relaxed">
-        L'École d'Excellence Espoir de Guinée (E.E.G) est née d'une ambition claire : offrir à la jeunesse guinéenne
+        L'École d'Éxcellence Espoir de Guinée (EEG) est née d'une ambition claire : offrir à la jeunesse guinéenne
         une éducation de standard international, ancrée dans les valeurs locales et ouverte sur le monde. Fruit d'une
         collaboration entre la Guinée et la Suède, notre institution s'engage à révéler le potentiel de chaque élève
         et à former une nouvelle génération de leaders responsables, créatifs et compétitifs.
@@ -256,95 +244,6 @@
   </div>
 </section>
 
-<!-- ============ LEADERSHIP / PATRONS ============ -->
-<section id="leadership" class="py-24 sm:py-32 bg-navy-900 relative overflow-hidden">
-  <div class="absolute inset-0 pattern-overlay opacity-10"></div>
-  <div class="relative max-w-6xl mx-auto px-5 sm:px-8">
-    <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
-      <p class="text-gold-400 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-3">Parrain & Marraine</p>
-      <h2 class="font-serif-display text-3xl sm:text-5xl font-bold text-white">
-        Nos Figures de Proue
-      </h2>
-    </div>
-
-    <div class="grid sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
-      <!-- Parrain -->
-      <div class="fade-up card-hover bg-white/5 border border-gold-500/25 rounded-3xl p-8 text-center backdrop-blur">
-        <div class="w-28 h-28 mx-auto rounded-full bg-gradient-to-br from-navy-600 to-navy-800 border-4 border-gold-500 flex items-center justify-center text-5xl mb-6 shadow-lg">
-          👔
-        </div>
-        <span class="inline-block bg-gold-500 text-navy-900 text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">Parrain</span>
-        <h3 class="font-serif-display text-xl font-bold text-white mb-2">Ansoumane Diessira Condé</h3>
-        <p class="text-white/60 text-sm italic">« Engagé pour l'éducation, bâtisseur d'avenir. »</p>
-      </div>
-
-      <!-- Marraine -->
-      <div class="fade-up card-hover bg-white/5 border border-gold-500/25 rounded-3xl p-8 text-center backdrop-blur">
-        <div class="w-28 h-28 mx-auto rounded-full bg-gradient-to-br from-navy-600 to-navy-800 border-4 border-gold-500 flex items-center justify-center text-5xl mb-6 shadow-lg">
-          👩🏾
-        </div>
-        <span class="inline-block bg-gold-500 text-navy-900 text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">Marraine</span>
-        <h3 class="font-serif-display text-xl font-bold text-white mb-2">Kadija Bah</h3>
-        <p class="text-white/60 text-sm italic">« Une femme de conviction, au service de la jeunesse. »</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ EVENT SCHEDULE ============ -->
-<section id="program" class="py-24 sm:py-32 bg-white">
-  <div class="max-w-4xl mx-auto px-5 sm:px-8">
-    <div class="text-center max-w-2xl mx-auto mb-16 fade-up">
-      <p class="text-gold-600 text-xs sm:text-sm font-bold tracking-[0.3em] uppercase mb-3">05 Septembre 2025</p>
-      <h2 class="font-serif-display text-3xl sm:text-5xl font-bold text-navy-900">
-        Programme de la Cérémonie
-      </h2>
-    </div>
-
-    <div class="relative pl-10 sm:pl-14">
-      <div class="absolute left-4 sm:left-6 top-2 bottom-2 w-[3px] timeline-line rounded-full"></div>
-
-      <div class="space-y-10">
-        <div class="fade-up relative">
-          <div class="absolute -left-[34px] sm:-left-[42px] top-1 w-6 h-6 rounded-full bg-gold-500 border-4 border-white shadow-md flex items-center justify-center text-[10px]">🕐</div>
-          <div class="bg-navy-50/70 border border-navy-100 rounded-2xl p-6 card-hover">
-            <span class="text-gold-600 font-bold text-sm">10H00 GMT</span>
-            <h3 class="font-serif-display font-bold text-lg text-navy-900 mt-1">Réception des invités</h3>
-            <p class="text-navy-700/70 text-sm mt-1">Accueil chaleureux et installation des invités d'honneur, partenaires et familles.</p>
-          </div>
-        </div>
-
-        <div class="fade-up relative">
-          <div class="absolute -left-[34px] sm:-left-[42px] top-1 w-6 h-6 rounded-full bg-gold-500 border-4 border-white shadow-md flex items-center justify-center text-[10px]">🎗️</div>
-          <div class="bg-navy-50/70 border border-navy-100 rounded-2xl p-6 card-hover">
-            <span class="text-gold-600 font-bold text-sm">10H45 GMT</span>
-            <h3 class="font-serif-display font-bold text-lg text-navy-900 mt-1">Inauguration officielle</h3>
-            <p class="text-navy-700/70 text-sm mt-1">Cérémonie symbolique marquant le lancement officiel de l'École d'Excellence Espoir de Guinée.</p>
-          </div>
-        </div>
-
-        <div class="fade-up relative">
-          <div class="absolute -left-[34px] sm:-left-[42px] top-1 w-6 h-6 rounded-full bg-gold-500 border-4 border-white shadow-md flex items-center justify-center text-[10px]">🏫</div>
-          <div class="bg-navy-50/70 border border-navy-100 rounded-2xl p-6 card-hover">
-            <span class="text-gold-600 font-bold text-sm">11H00 GMT</span>
-            <h3 class="font-serif-display font-bold text-lg text-navy-900 mt-1">Présentation des lieux</h3>
-            <p class="text-navy-700/70 text-sm mt-1">Visite guidée du campus, des infrastructures et des espaces pédagogiques de l'école.</p>
-          </div>
-        </div>
-
-        <div class="fade-up relative">
-          <div class="absolute -left-[34px] sm:-left-[42px] top-1 w-6 h-6 rounded-full bg-gold-500 border-4 border-white shadow-md flex items-center justify-center text-[10px]">🎙️</div>
-          <div class="bg-navy-50/70 border border-navy-100 rounded-2xl p-6 card-hover">
-            <span class="text-gold-600 font-bold text-sm">12H00 GMT</span>
-            <h3 class="font-serif-display font-bold text-lg text-navy-900 mt-1">Discours officiels</h3>
-            <p class="text-navy-700/70 text-sm mt-1">Allocutions des autorités, partenaires et figures de proue de l'établissement.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ LOCATION & CONTACT ============ -->
 <section id="location" class="py-24 sm:py-32 bg-navy-50/60 relative overflow-hidden">
   <div class="max-w-6xl mx-auto px-5 sm:px-8">
@@ -358,9 +257,9 @@
     <div class="grid lg:grid-cols-2 gap-10">
       <!-- Map + info -->
       <div class="fade-up space-y-6">
-        <div id="contact" class="rounded-3xl overflow-hidden border border-navy-100 shadow-lg h-72 sm:h-80">
+        <div class="rounded-3xl overflow-hidden border border-navy-100 shadow-lg h-72 sm:h-80">
           <iframe
-            title="Localisation E.E.G — Lambanyi, Carrefour Canadien, Conakry"
+            title="Localisation EEG — Lambanyi, Carrefour Canadien, Conakry"
             src="https://www.google.com/maps?q=Lambanyi,+Carrefour+Canadien,+Conakry,+Guin%C3%A9e&output=embed"
             class="w-full h-full border-0"
             loading="lazy"
@@ -400,10 +299,10 @@
         </div>
       </div>
 
-      <!-- RSVP Form -->
-      <div class="fade-up bg-white rounded-3xl border border-navy-100 shadow-lg p-6 sm:p-10">
-        <h3 class="font-serif-display text-2xl font-bold text-navy-900 mb-2">Confirmez votre présence</h3>
-        <p class="text-navy-700/70 text-sm mb-8">Réservez votre place pour la cérémonie d'ouverture ou demandez plus d'informations sur les admissions.</p>
+      <!-- Contact / Inquiry Form -->
+      <div id="contact" class="fade-up bg-white rounded-3xl border border-navy-100 shadow-lg p-6 sm:p-10">
+        <h3 class="font-serif-display text-2xl font-bold text-navy-900 mb-2">Contactez-nous</h3>
+        <p class="text-navy-700/70 text-sm mb-8">Demandez des informations sur les admissions, nos programmes, ou planifiez une visite du campus.</p>
 
         <form id="rsvp-form" class="space-y-5">
           <div>
@@ -427,9 +326,9 @@
             <label for="reason" class="block text-sm font-medium text-navy-900 mb-1.5">Objet</label>
             <select id="reason" name="reason"
               class="w-full rounded-xl border border-navy-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 px-4 py-3 text-sm transition-all bg-white">
-              <option>Confirmer ma présence à la cérémonie</option>
-              <option>Demande d'admission / inscription</option>
-              <option>Information sur le programme</option>
+              <option>Demande d'inscription</option>
+              <option>Information générale</option>
+              <option>Visite du campus</option>
               <option>Partenariat / autre</option>
             </select>
           </div>
@@ -458,11 +357,25 @@
     <div class="grid sm:grid-cols-3 gap-10 pb-10 border-b border-white/10">
       <div>
         <div class="flex items-center gap-3 mb-4">
-          <span class="text-2xl">🎓</span>
-          <span class="font-serif-display font-bold text-lg">É.E.G</span>
+          <svg viewBox="0 0 64 64" class="w-9 h-9 shrink-0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="flameGradientFooter" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#F5D98A"/>
+                <stop offset="55%" stop-color="#D4AF37"/>
+                <stop offset="100%" stop-color="#B0902A"/>
+              </linearGradient>
+            </defs>
+            <circle cx="32" cy="32" r="30" fill="#0A1B38"/>
+            <circle cx="32" cy="32" r="30" fill="none" stroke="#D4AF37" stroke-width="1.5"/>
+            <path d="M14 42 C14 37 20 35 25 35 C28.5 35 31 36 32 37.5 L32 51 C31 49.5 28.5 48.5 25 48.5 C20 48.5 14 46 14 42 Z" fill="#FFFFFF"/>
+            <path d="M50 42 C50 37 44 35 39 35 C35.5 35 33 36 32 37.5 L32 51 C33 49.5 35.5 48.5 39 48.5 C44 48.5 50 46 50 42 Z" fill="#FFFFFF"/>
+            <path d="M32 10 C36 15 39 18.5 38 23 C37.3 26 34.8 27.5 32 27.5 C29.2 27.5 26.7 26 26 23 C25 18.5 28 15 32 10 Z" fill="url(#flameGradientFooter)"/>
+            <circle cx="32" cy="31" r="1.8" fill="#D4AF37"/>
+          </svg>
+          <span class="font-serif-display font-bold text-lg">EEG</span>
         </div>
         <p class="text-white/60 text-sm leading-relaxed mb-4">
-          École d'Excellence Espoir de Guinée — Un partenariat Guinée & Suède pour révéler le potentiel et former les leaders de demain.
+          École d'Éxcellence Espoir de Guinée — Un partenariat Guinée & Suède pour révéler le potentiel et former les leaders de demain.
         </p>
         <div class="flex items-center gap-2 text-sm text-white/60">
           <span>🇸🇪</span><span>&</span><span>🇬🇳</span>
@@ -473,8 +386,6 @@
         <h4 class="font-serif-display font-bold text-gold-400 mb-4">Liens Rapides</h4>
         <ul class="space-y-2.5 text-sm text-white/60">
           <li><a href="#about" class="hover:text-gold-400 transition-colors">À Propos</a></li>
-          <li><a href="#leadership" class="hover:text-gold-400 transition-colors">Direction</a></li>
-          <li><a href="#program" class="hover:text-gold-400 transition-colors">Programme</a></li>
           <li><a href="#location" class="hover:text-gold-400 transition-colors">Localisation</a></li>
           <li><a href="#contact" class="hover:text-gold-400 transition-colors">Postuler</a></li>
         </ul>
@@ -498,7 +409,7 @@
     </div>
 
     <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/40">
-      <p>© <span id="year"></span> École d'Excellence Espoir de Guinée (E.E.G). Tous droits réservés.</p>
+      <p>© <span id="year"></span> École d'Éxcellence Espoir de Guinée (EEG). Tous droits réservés.</p>
       <p class="font-serif-display italic text-gold-400/80">« Révéler le potentiel. Former les leaders. »</p>
     </div>
   </div>
@@ -508,7 +419,6 @@
   // ---------- Navbar scroll style ----------
   const navbar = document.getElementById('navbar');
   const navTitle = document.getElementById('nav-title');
-  const navSubtitle = document.getElementById('nav-subtitle');
   const navLinks = document.querySelectorAll('.nav-link');
 
   function onScrollNav() {
@@ -546,46 +456,6 @@
     });
   });
 
-  // ---------- Countdown Timer ----------
-  // 05 September 2025, 10:00 GMT
-  const eventDate = new Date('2025-09-05T10:00:00Z').getTime();
-  const cdDays = document.getElementById('cd-days');
-  const cdHours = document.getElementById('cd-hours');
-  const cdMinutes = document.getElementById('cd-minutes');
-  const cdSeconds = document.getElementById('cd-seconds');
-  const countdownEl = document.getElementById('countdown');
-  const countdownStatus = document.getElementById('countdown-status');
-
-  function pad(n) { return String(n).padStart(2, '0'); }
-
-  function updateCountdown() {
-    const now = Date.now();
-    const distance = eventDate - now;
-
-    if (distance <= 0) {
-      cdDays.textContent = '00';
-      cdHours.textContent = '00';
-      cdMinutes.textContent = '00';
-      cdSeconds.textContent = '00';
-      countdownStatus.classList.remove('hidden');
-      clearInterval(countdownInterval);
-      return;
-    }
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    cdDays.textContent = pad(days);
-    cdHours.textContent = pad(hours);
-    cdMinutes.textContent = pad(minutes);
-    cdSeconds.textContent = pad(seconds);
-  }
-
-  updateCountdown();
-  const countdownInterval = setInterval(updateCountdown, 1000);
-
   // ---------- Fade-up on scroll ----------
   const fadeEls = document.querySelectorAll('.fade-up');
   const observer = new IntersectionObserver((entries) => {
@@ -601,7 +471,7 @@
     observer.observe(el);
   });
 
-  // ---------- RSVP form (client-side demo) ----------
+  // ---------- Contact form (client-side demo) ----------
   const form = document.getElementById('rsvp-form');
   const formSuccess = document.getElementById('form-success');
   form.addEventListener('submit', (e) => {
