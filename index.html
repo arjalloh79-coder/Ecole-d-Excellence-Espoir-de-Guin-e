@@ -82,12 +82,18 @@
   }
 
   /* Applied to #hero-gradient instead of .hero-bg once a real hero photo loads,
-     so the photo shows through with a legible navy tint rather than being fully covered. */
+     so the photo stays crisp and clearly visible with just enough navy tint
+     at the bottom for the text to stay legible. */
   .hero-bg-overlay {
     background:
-      radial-gradient(circle at 15% 20%, rgba(212,175,55,0.18), transparent 40%),
-      radial-gradient(circle at 85% 80%, rgba(212,175,55,0.15), transparent 45%),
-      linear-gradient(160deg, rgba(10,27,56,0.92) 0%, rgba(15,44,89,0.82) 45%, rgba(21,47,92,0.88) 100%);
+      radial-gradient(circle at 15% 20%, rgba(212,175,55,0.10), transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(212,175,55,0.08), transparent 45%),
+      linear-gradient(180deg, rgba(10,27,56,0.35) 0%, rgba(10,27,56,0.20) 35%, rgba(10,27,56,0.55) 100%);
+  }
+
+  /* Keeps hero text readable regardless of how bright the photo behind it is. */
+  .hero-text-shadow {
+    text-shadow: 0 2px 14px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.45);
   }
 
   .pattern-overlay {
@@ -136,10 +142,10 @@
 
 <!-- ============ NAVBAR ============ -->
 <header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
-  <nav class="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-20 gap-4">
-    <a href="#top" class="flex items-center gap-3 group shrink-0">
+  <nav class="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between py-2 sm:py-3 gap-4">
+    <a href="#top" class="flex flex-col items-center gap-1 group shrink-0">
       <span id="nav-logo-svg-wrap" class="shrink-0">
-        <svg id="nav-logo" viewBox="0 0 64 64" class="w-10 h-10 shrink-0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <svg id="nav-logo" viewBox="0 0 64 64" class="w-12 h-12 sm:w-16 sm:h-16 shrink-0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs>
             <linearGradient id="flameGradientNav" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stop-color="#F5D98A"/>
@@ -155,8 +161,8 @@
           <circle cx="32" cy="31" r="1.8" fill="#D4AF37"/>
         </svg>
       </span>
-      <img id="nav-logo-img" data-asset="logoNav" data-asset-fallback="#nav-logo-svg-wrap" class="hidden w-10 h-10 max-h-10 object-contain shrink-0" loading="eager" alt="" />
-      <span class="leading-tight hidden sm:block">
+      <img id="nav-logo-img" data-asset="logoNav" data-asset-fallback="#nav-logo-svg-wrap" class="hidden w-12 h-12 sm:w-16 sm:h-16 max-h-16 object-contain shrink-0" loading="eager" alt="" />
+      <span class="leading-tight hidden sm:block text-center">
         <span id="nav-title" class="block font-serif-display font-extrabold text-base sm:text-lg text-white transition-colors tracking-tight">EEG</span>
         <span id="nav-subtitle" class="block text-[9px] sm:text-[10px] tracking-widest uppercase text-gold-400 transition-colors whitespace-nowrap">École d'Excellence Espoir de Guinée</span>
       </span>
@@ -215,7 +221,7 @@
 </header>
 
 <!-- ============ HERO ============ -->
-<section id="top" class="relative overflow-hidden pt-32 pb-24 sm:pt-40 sm:pb-32">
+<section id="top" class="relative overflow-hidden pt-40 pb-24 sm:pt-48 sm:pb-32">
   <div class="absolute inset-0 z-0">
     <img id="hero-bg-img" alt="" class="hidden w-full h-full object-cover" loading="eager" />
     <div id="hero-gradient" class="absolute inset-0 hero-bg"></div>
@@ -227,9 +233,9 @@
   <div class="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 text-center">
 
     <!-- Partnership badge -->
-    <div class="fade-up inline-flex items-center gap-3 bg-white/5 border border-white/15 rounded-full px-5 py-2 mb-8">
+    <div class="fade-up inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-5 py-2 mb-8">
       <span class="text-lg leading-none">🇸🇪</span>
-      <span class="text-xs sm:text-sm text-white/80 tracking-wide" data-i18n="hero.badge">Partenariat Guinée — Suède</span>
+      <span class="hero-text-shadow text-xs sm:text-sm text-white/90 tracking-wide" data-i18n="hero.badge">Partenariat Guinée — Suède</span>
       <span class="text-lg leading-none">🇬🇳</span>
     </div>
 
@@ -249,16 +255,16 @@
       <circle cx="32" cy="31" r="1.8" fill="#D4AF37"/>
     </svg>
 
-    <h1 class="fade-up font-serif-display text-4xl sm:text-6xl md:text-7xl font-extrabold text-white leading-[1.1] mb-6">
+    <h1 class="hero-text-shadow fade-up font-serif-display text-4xl sm:text-6xl md:text-7xl font-extrabold text-white leading-[1.1] mb-6">
       EEG École d'Excellence <br class="hidden sm:block" />
       <span class="text-gold-400">Espoir de Guinée</span>
     </h1>
 
-    <p class="fade-up font-serif-display italic text-xl sm:text-2xl text-white/90 gold-underline mb-4" data-i18n="hero.slogan">
+    <p class="hero-text-shadow fade-up font-serif-display italic text-xl sm:text-2xl text-white gold-underline mb-4" data-i18n="hero.slogan">
       « Révéler le potentiel. Former les leaders. »
     </p>
 
-    <p class="fade-up text-white/70 max-w-2xl mx-auto text-base sm:text-lg mb-10" data-i18n="hero.tagline">
+    <p class="hero-text-shadow fade-up text-white/90 max-w-2xl mx-auto text-base sm:text-lg mb-10" data-i18n="hero.tagline">
       Ensemble, bâtissons un avenir d'excellence pour nos enfants et notre nation.
     </p>
 
@@ -266,7 +272,7 @@
       <a href="#contact" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold px-8 py-4 rounded-full shadow-xl shadow-gold-500/25 transition-all hover:scale-105" data-i18n="hero.ctaPrimary">
         Prendre Rendez-vous
       </a>
-      <a href="#pedagogy" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 border border-white/30 hover:border-gold-400 hover:text-gold-400 text-white font-semibold px-8 py-4 rounded-full transition-all" data-i18n="hero.ctaSecondary">
+      <a href="#pedagogy" class="hero-text-shadow w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/40 hover:border-gold-400 hover:text-gold-400 text-white font-semibold px-8 py-4 rounded-full transition-all" data-i18n="hero.ctaSecondary">
         Découvrir l'École
       </a>
     </div>
