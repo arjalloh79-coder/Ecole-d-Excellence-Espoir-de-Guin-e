@@ -125,7 +125,7 @@
   .facility-icon { transition: transform .35s ease; }
   .card-hover:hover .facility-icon { transform: scale(1.08) rotate(-2deg); }
 
-  /* Video/thumbnail hover-zoom + pulsing play affordance (Founders' Message card) */
+  /* Video/thumbnail hover-zoom + pulsing play affordance (Founder's Message card) */
   .play-thumb { transition: transform .4s cubic-bezier(0.22, 1, 0.36, 1); }
   .group:hover .play-thumb { transform: scale(1.08); }
   .play-pulse { position: relative; }
@@ -342,18 +342,18 @@
       </div>
     </div>
 
-    <!-- Founders' Message -->
+    <!-- Founder's Message -->
     <a href="#" id="founders-video-link-wrap" target="_blank" rel="noopener noreferrer"
       class="group fade-up mt-12 block bg-navy-900 rounded-3xl p-8 sm:p-10 relative overflow-hidden card-hover">
       <div class="absolute inset-0 pattern-overlay opacity-10"></div>
       <div class="relative flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
         <div class="play-thumb play-pulse w-16 h-16 rounded-2xl bg-gold-500 flex items-center justify-center text-3xl shrink-0">🎥</div>
         <div class="flex-1 text-center sm:text-left">
-          <p class="text-gold-400 text-xs font-bold tracking-[0.3em] uppercase mb-2" data-i18n="founders.eyebrow">Mot des Fondateurs</p>
-          <p class="text-white/80 text-sm sm:text-base leading-relaxed" data-i18n="founders.body">Découvrez le message de nos fondateurs sur la vision et l'ambition de l'EEG pour la jeunesse guinéenne.</p>
+          <p class="text-gold-400 text-xs font-bold tracking-[0.3em] uppercase mb-2" data-i18n="founders.eyebrow">Mot du Fondateur</p>
+          <p class="text-white/80 text-sm sm:text-base leading-relaxed" data-i18n="founders.body">Découvrez le message de notre fondateur sur la vision et l'ambition de l'EEG pour la jeunesse guinéenne.</p>
         </div>
         <span id="founders-video-link" class="shrink-0 inline-flex items-center gap-2 bg-gold-500 group-hover:bg-gold-600 text-navy-900 font-bold text-sm px-6 py-3.5 rounded-full shadow-lg shadow-gold-500/20 transition-all group-hover:scale-105 whitespace-nowrap" data-i18n="founders.cta">
-          ▶ Regarder le Message des Fondateurs
+          ▶ Regarder le Message du Fondateur
         </span>
       </div>
     </a>
@@ -1017,9 +1017,9 @@
       'footer.copyright': '© <span id="year"></span> École d’Excellence Espoir de Guinée (EEG). Tous droits réservés.',
       'toast.parents': 'Espace Parents — Portail bientôt disponible',
       'toast.students': 'Espace Élèves — Portail bientôt disponible',
-      'founders.eyebrow': 'Mot des Fondateurs',
-      'founders.body': "Découvrez le message de nos fondateurs sur la vision et l'ambition de l'EEG pour la jeunesse guinéenne.",
-      'founders.cta': '▶ Regarder le Message des Fondateurs',
+      'founders.eyebrow': 'Mot du Fondateur',
+      'founders.body': "Découvrez le message de notre fondateur sur la vision et l'ambition de l'EEG pour la jeunesse guinéenne.",
+      'founders.cta': '▶ Regarder le Message du Fondateur',
       'cycles.eyebrow': 'Nos Cycles', 'cycles.title': 'Crèche, Maternelle & Primaire',
       'cycles.c1Title': 'Crèche', 'cycles.c1Desc': 'Un encadrement sécurisé et stimulant pour les tout-petits.',
       'cycles.c2Title': 'Maternelle', 'cycles.c2Desc': 'Éveil, jeu et premiers apprentissages en toute confiance.',
@@ -1099,9 +1099,9 @@
       'footer.copyright': '© <span id="year"></span> EEG École d\'Excellence Espoir de Guinée. All rights reserved.',
       'toast.parents': 'Parent Portal — Coming soon',
       'toast.students': 'Student Portal — Coming soon',
-      'founders.eyebrow': "Founders' Message",
-      'founders.body': "Discover our founders' message about EEG's vision and ambition for Guinean youth.",
-      'founders.cta': "▶ Watch the Founders' Message",
+      'founders.eyebrow': "Founder's Message",
+      'founders.body': "Discover our founder's message about EEG's vision and ambition for Guinean youth.",
+      'founders.cta': "▶ Watch the Founder's Message",
       'cycles.eyebrow': 'Our Programs', 'cycles.title': 'Nursery, Kindergarten & Primary',
       'cycles.c1Title': 'Nursery', 'cycles.c1Desc': 'Secure, stimulating care for our youngest learners.',
       'cycles.c2Title': 'Kindergarten', 'cycles.c2Desc': 'Discovery, play and first learning steps, in confidence.',
@@ -1184,7 +1184,7 @@
     admissionsFlyerLink.style.display = 'inline-flex';
   });
 
-  // Founders' message video link (centralized in assets/image-manifest.js -> EEG_MEDIA)
+  // Founder's message video link (centralized in assets/image-manifest.js -> EEG_MEDIA)
   const foundersLink = document.getElementById('founders-video-link-wrap');
   if (foundersLink && typeof EEG_MEDIA !== 'undefined') {
     foundersLink.href = EEG_MEDIA.foundersMessageVideo.src;
