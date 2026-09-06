@@ -13,15 +13,16 @@ vector logo mark / gradient background / icon cards — nothing ever shows a bro
 
 ## Folder map
 
-| Folder | Used for | Expected filename(s) |
-|---|---|---|
-| `images/logo/` | Header + footer brand mark | `eeg-logo.png` |
-| `images/hero/` | Homepage hero background | `hero-school.jpg` |
-| `images/programs/` | Crèche / Maternelle / Primaire banner | `niveaux-creche-maternelle-primaire.jpg` |
-| `images/admissions/` | Admissions section banner + downloadable flyer | `admissions-2025-2026.jpg` |
-| `images/facilities/` | Campus & Facilities cards (one per card) | `classroom.jpg`, `computer-lab.jpg`, `library.jpg`, `sports-field.jpg`, `slojd-workshop.jpg`, `garden.jpg` |
-| `images/news/` | Calendar/News feed cards | `news-1.jpg`, `news-2.jpg`, `news-3.jpg` |
-| `images/leadership/` | Leadership/faculty profile photos, once named | `lead-1.jpg`, `lead-2.jpg`, `lead-3.jpg` |
+| Folder | Used for | Expected filename(s) | Status |
+|---|---|---|---|
+| `images/logo/` | Header + footer brand mark; `eeg-logo-with-flags.jpg` powers the partnership badge in the Trust section | `eeg-logo.jpg`, `eeg-logo-with-flags.jpg` | ✅ delivered |
+| `images/hero/` | Homepage hero background | `hero-school.jpg` | ✅ delivered |
+| `images/programs/` | Crèche / Maternelle / Primaire banner (shown above the "Nos Cycles" section) | `niveaux-creche-maternelle-primaire.jpg` | ⏳ not yet provided |
+| `images/admissions/` | Admissions section banner + downloadable flyer | `admissions-2025-2026.jpg` | ✅ delivered |
+| `images/facilities/` | Campus & Facilities cards (one per card) | `classroom.jpg` ✅, `computer-lab.jpg`, `library.jpg`, `sports-field.jpg`, `slojd-workshop.jpg`, `garden.jpg` | classroom delivered; rest pending |
+| `images/news/` | Calendar/News feed cards | `news-1.jpg`, `news-2.jpg`, `news-3.jpg` | ⏳ not yet provided |
+| `images/leadership/` | Leadership/faculty profile photos, once named | `lead-1.jpg`, `lead-2.jpg`, `lead-3.jpg` | ⏳ not yet provided |
+| `images/archive/` | Superseded assets kept for record, not referenced anywhere on the site | `admissions-2024-superseded.jpg` | ✅ archived (2024 flyer replaced by the 2026 one) |
 
 ## Adding a brand-new image slot
 
