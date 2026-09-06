@@ -622,7 +622,10 @@
     <!-- Accreditations -->
     <div class="fade-up grid sm:grid-cols-3 gap-6 mb-16">
       <div class="bg-white rounded-2xl border border-navy-100 shadow-sm p-6 text-center">
-        <div class="text-3xl mb-3">🇸🇪🇬🇳</div>
+        <div class="relative h-12 mb-3 flex items-center justify-center">
+          <img data-asset="partnershipBadge" data-asset-fallback="#partnership-badge-emoji" class="hidden max-h-12 mx-auto object-contain" loading="lazy" alt="" />
+          <div id="partnership-badge-emoji" class="text-3xl">🇸🇪🇬🇳</div>
+        </div>
         <p class="font-semibold text-navy-900 text-sm" data-i18n="trust.acc1">Partenariat Institutionnel Guinée-Suède</p>
       </div>
       <div class="bg-white rounded-2xl border border-navy-100 shadow-sm p-6 text-center">

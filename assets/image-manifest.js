@@ -10,16 +10,20 @@
  */
 const EEG_IMAGES = {
   logoNav: {
-    src: 'images/logo/eeg-logo.png',
+    src: 'images/logo/eeg-logo.jpg',
     alt: { fr: 'Logo — École d\'Éxcellence Espoir de Guinée (EEG)', en: 'EEG École d\'Éxcellence Espoir de Guinée logo' },
   },
   logoFooter: {
-    src: 'images/logo/eeg-logo.png',
+    src: 'images/logo/eeg-logo.jpg',
     alt: { fr: 'Logo — École d\'Éxcellence Espoir de Guinée (EEG)', en: 'EEG École d\'Éxcellence Espoir de Guinée logo' },
+  },
+  partnershipBadge: {
+    src: 'images/logo/eeg-logo-with-flags.jpg',
+    alt: { fr: 'Logo EEG entre les drapeaux de la Suède et de la Guinée', en: 'EEG logo between the Swedish and Guinean flags' },
   },
   heroSchool: {
     src: 'images/hero/hero-school.jpg',
-    alt: { fr: 'Façade du campus EEG avec l\'équipe et les élèves', en: 'EEG campus facade with staff and students' },
+    alt: { fr: 'Équipe et élèves de l\'EEG devant le campus', en: 'EEG staff and students in front of the campus' },
   },
   programsLevels: {
     src: 'images/programs/niveaux-creche-maternelle-primaire.jpg',
