@@ -106,12 +106,12 @@
 
   .fade-up {
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity .7s ease, transform .7s ease;
+    transform: translateY(24px) scale(0.97);
+    transition: opacity .7s ease, transform .7s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .fade-up.in-view {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 
   input:focus, textarea:focus { outline: none; }
@@ -124,6 +124,31 @@
 
   .facility-icon { transition: transform .35s ease; }
   .card-hover:hover .facility-icon { transform: scale(1.08) rotate(-2deg); }
+
+  /* Video/thumbnail hover-zoom + pulsing play affordance (Founders' Message card) */
+  .play-thumb { transition: transform .4s cubic-bezier(0.22, 1, 0.36, 1); }
+  .group:hover .play-thumb { transform: scale(1.08); }
+  .play-pulse { position: relative; }
+  .play-pulse::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 0 0 0 rgba(212,175,55,0.55);
+    animation: playPulse 2.4s ease-out infinite;
+  }
+  @keyframes playPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(212,175,55,0.5); }
+    70%  { box-shadow: 0 0 0 18px rgba(212,175,55,0); }
+    100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-up { opacity: 1; transform: none; transition: none; }
+    .play-pulse::after { animation: none; }
+    .play-thumb { transition: none; }
+    #hero-bg-img, #hero-bg-img-2 { transition: none !important; }
+  }
 
   details.faq-item summary { list-style: none; cursor: pointer; }
   details.faq-item summary::-webkit-details-marker { display: none; }
@@ -221,9 +246,10 @@
 </header>
 
 <!-- ============ HERO ============ -->
-<section id="top" class="relative overflow-hidden pt-40 pb-24 sm:pt-48 sm:pb-32">
+<section id="top" class="relative overflow-hidden flex flex-col justify-start items-center pt-40 pb-16 sm:pt-48 sm:pb-20 min-h-[88vh] sm:min-h-[92vh]">
   <div class="absolute inset-0 z-0">
-    <img id="hero-bg-img" alt="" class="hidden w-full h-full object-cover" loading="eager" />
+    <img id="hero-bg-img" alt="" class="hidden absolute inset-0 w-full h-full object-cover object-[center_28%] transition-opacity duration-[1600ms] ease-in-out" loading="eager" />
+    <img id="hero-bg-img-2" alt="" class="hidden absolute inset-0 w-full h-full object-cover object-center opacity-0 transition-opacity duration-[1600ms] ease-in-out" loading="lazy" />
     <div id="hero-gradient" class="absolute inset-0 hero-bg"></div>
   </div>
   <div class="absolute inset-0 pattern-overlay opacity-20 z-[1]"></div>
@@ -233,29 +259,32 @@
   <div class="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 text-center">
 
     <!-- Partnership badge -->
-    <div class="fade-up inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-5 py-2 mb-8">
+    <div class="fade-up inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-5 py-2 mb-6">
       <span class="text-lg leading-none">🇸🇪</span>
       <span class="hero-text-shadow text-xs sm:text-sm text-white/90 tracking-wide" data-i18n="hero.badge">Partenariat Guinée — Suède</span>
       <span class="text-lg leading-none">🇬🇳</span>
     </div>
 
-    <svg viewBox="0 0 64 64" class="fade-up w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <defs>
-        <linearGradient id="flameGradientHero" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#F5D98A"/>
-          <stop offset="55%" stop-color="#D4AF37"/>
-          <stop offset="100%" stop-color="#B0902A"/>
-        </linearGradient>
-      </defs>
-      <circle cx="32" cy="32" r="30" fill="#0F2C59"/>
-      <circle cx="32" cy="32" r="30" fill="none" stroke="#D4AF37" stroke-width="1.5"/>
-      <path d="M14 42 C14 37 20 35 25 35 C28.5 35 31 36 32 37.5 L32 51 C31 49.5 28.5 48.5 25 48.5 C20 48.5 14 46 14 42 Z" fill="#FFFFFF"/>
-      <path d="M50 42 C50 37 44 35 39 35 C35.5 35 33 36 32 37.5 L32 51 C33 49.5 35.5 48.5 39 48.5 C44 48.5 50 46 50 42 Z" fill="#FFFFFF"/>
-      <path d="M32 10 C36 15 39 18.5 38 23 C37.3 26 34.8 27.5 32 27.5 C29.2 27.5 26.7 26 26 23 C25 18.5 28 15 32 10 Z" fill="url(#flameGradientHero)"/>
-      <circle cx="32" cy="31" r="1.8" fill="#D4AF37"/>
-    </svg>
+    <span id="hero-logo-svg-wrap" class="fade-up block mb-4">
+      <svg viewBox="0 0 64 64" class="w-16 h-16 sm:w-20 sm:h-20 mx-auto drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="flameGradientHero" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#F5D98A"/>
+            <stop offset="55%" stop-color="#D4AF37"/>
+            <stop offset="100%" stop-color="#B0902A"/>
+          </linearGradient>
+        </defs>
+        <circle cx="32" cy="32" r="30" fill="#0F2C59"/>
+        <circle cx="32" cy="32" r="30" fill="none" stroke="#D4AF37" stroke-width="1.5"/>
+        <path d="M14 42 C14 37 20 35 25 35 C28.5 35 31 36 32 37.5 L32 51 C31 49.5 28.5 48.5 25 48.5 C20 48.5 14 46 14 42 Z" fill="#FFFFFF"/>
+        <path d="M50 42 C50 37 44 35 39 35 C35.5 35 33 36 32 37.5 L32 51 C33 49.5 35.5 48.5 39 48.5 C44 48.5 50 46 50 42 Z" fill="#FFFFFF"/>
+        <path d="M32 10 C36 15 39 18.5 38 23 C37.3 26 34.8 27.5 32 27.5 C29.2 27.5 26.7 26 26 23 C25 18.5 28 15 32 10 Z" fill="url(#flameGradientHero)"/>
+        <circle cx="32" cy="31" r="1.8" fill="#D4AF37"/>
+      </svg>
+    </span>
+    <img id="hero-logo-img" data-asset="logoNav" data-asset-fallback="#hero-logo-svg-wrap" class="hidden fade-up w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-4 object-contain drop-shadow-[0_6px_20px_rgba(0,0,0,0.55)] bg-white/95 rounded-2xl p-2" loading="eager" alt="" />
 
-    <h1 class="hero-text-shadow fade-up font-serif-display text-4xl sm:text-6xl md:text-7xl font-extrabold text-white leading-[1.1] mb-6">
+    <h1 class="hero-text-shadow fade-up font-serif-display text-4xl sm:text-6xl md:text-7xl font-extrabold text-white leading-[1.1] mb-5">
       EEG École d'Excellence <br class="hidden sm:block" />
       <span class="text-gold-400">Espoir de Guinée</span>
     </h1>
@@ -264,7 +293,7 @@
       « Révéler le potentiel. Former les leaders. »
     </p>
 
-    <p class="hero-text-shadow fade-up text-white/90 max-w-2xl mx-auto text-base sm:text-lg mb-10" data-i18n="hero.tagline">
+    <p class="hero-text-shadow fade-up text-white/90 max-w-2xl mx-auto text-base sm:text-lg mb-8" data-i18n="hero.tagline">
       Ensemble, bâtissons un avenir d'excellence pour nos enfants et notre nation.
     </p>
 
@@ -314,20 +343,20 @@
     </div>
 
     <!-- Founders' Message -->
-    <div class="fade-up mt-12 bg-navy-900 rounded-3xl p-8 sm:p-10 relative overflow-hidden">
+    <a href="#" id="founders-video-link-wrap" target="_blank" rel="noopener noreferrer"
+      class="group fade-up mt-12 block bg-navy-900 rounded-3xl p-8 sm:p-10 relative overflow-hidden card-hover">
       <div class="absolute inset-0 pattern-overlay opacity-10"></div>
       <div class="relative flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
-        <div class="w-16 h-16 rounded-2xl bg-gold-500 flex items-center justify-center text-3xl shrink-0">🎥</div>
+        <div class="play-thumb play-pulse w-16 h-16 rounded-2xl bg-gold-500 flex items-center justify-center text-3xl shrink-0">🎥</div>
         <div class="flex-1 text-center sm:text-left">
           <p class="text-gold-400 text-xs font-bold tracking-[0.3em] uppercase mb-2" data-i18n="founders.eyebrow">Mot des Fondateurs</p>
           <p class="text-white/80 text-sm sm:text-base leading-relaxed" data-i18n="founders.body">Découvrez le message de nos fondateurs sur la vision et l'ambition de l'EEG pour la jeunesse guinéenne.</p>
         </div>
-        <a id="founders-video-link" href="#" target="_blank" rel="noopener noreferrer"
-          class="shrink-0 inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold text-sm px-6 py-3.5 rounded-full shadow-lg shadow-gold-500/20 transition-all hover:scale-105 whitespace-nowrap" data-i18n="founders.cta">
+        <span id="founders-video-link" class="shrink-0 inline-flex items-center gap-2 bg-gold-500 group-hover:bg-gold-600 text-navy-900 font-bold text-sm px-6 py-3.5 rounded-full shadow-lg shadow-gold-500/20 transition-all group-hover:scale-105 whitespace-nowrap" data-i18n="founders.cta">
           ▶ Regarder le Message des Fondateurs
-        </a>
+        </span>
       </div>
-    </div>
+    </a>
   </div>
 </section>
 
@@ -1114,16 +1143,37 @@
   // ---------- Image assets (logo, hero, cycles, admissions, facilities, news, leadership) ----------
   mountAllDataAssetImages(currentLang);
 
-  // Hero background photo: only swaps in the navy gradient's opaque class for a
-  // translucent overlay once the real photo has actually loaded (see images/README.md).
+  // Hero background photo(s): only swaps in the navy gradient's opaque class for a
+  // translucent overlay once a real photo has actually loaded (see images/README.md).
+  // When a second campus photo is also available, slowly crossfades between the two.
   const heroImg = document.getElementById('hero-bg-img');
+  const heroImg2 = document.getElementById('hero-bg-img-2');
   const heroGradient = document.getElementById('hero-gradient');
+  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   mountImage('heroSchool', (src, alt) => {
     heroImg.src = src;
     heroImg.alt = alt;
     heroImg.classList.remove('hidden');
     heroGradient.classList.remove('hero-bg');
     heroGradient.classList.add('hero-bg-overlay');
+
+    if (prefersReducedMotion) return;
+
+    // Second slide is optional — if it fails to load, the hero simply stays on the first photo.
+    mountImage('facilityClassroom', (src2, alt2) => {
+      heroImg2.src = src2;
+      heroImg2.alt = alt2;
+      heroImg2.classList.remove('hidden');
+      const slides = [heroImg, heroImg2];
+      let activeIndex = 0;
+      setInterval(() => {
+        const next = (activeIndex + 1) % slides.length;
+        slides[next].style.opacity = '1';
+        slides[activeIndex].style.opacity = '0';
+        activeIndex = next;
+      }, 7000);
+    });
   });
 
   // Admissions flyer download link: only revealed once the poster image exists.
@@ -1135,7 +1185,7 @@
   });
 
   // Founders' message video link (centralized in assets/image-manifest.js -> EEG_MEDIA)
-  const foundersLink = document.getElementById('founders-video-link');
+  const foundersLink = document.getElementById('founders-video-link-wrap');
   if (foundersLink && typeof EEG_MEDIA !== 'undefined') {
     foundersLink.href = EEG_MEDIA.foundersMessageVideo.src;
   }
